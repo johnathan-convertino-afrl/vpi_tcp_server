@@ -1,0 +1,7 @@
+#*****************************************************************************
+# COPY PASTA FROM https://iverilog.fandom.com/wiki/Using_VPI
+#******************************************************************************
+
+# sft declarations 
+$read_binary_file   vpiSysFuncInt
+$write_binary_file  vpiSysFuncInt

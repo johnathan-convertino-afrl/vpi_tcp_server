@@ -1,0 +1,56 @@
+CAPI=2:
+
+name: AFRL:vpi:binary_file_io:1.0.0
+description: VPI core for reading and writing binary files by byte widths only.
+
+filesets:
+  src :
+    files : 
+      - src/read_binary_file.c  : {file_type : cSource}
+      - src/write_binary_file.c : {file_type : cSource}
+      - src/binary_file_io.c    : {file_type : cSource}
+      - src/binary_file_io.h    : {file_type : cSource, is_include_file : true}
+      - src/read_binary_file.h  : {file_type : cSource, is_include_file : true}
+      - src/write_binary_file.h : {file_type : cSource, is_include_file : true}
+      - src/binary_file_io.sft  : {file_type : user}
+  
+  lib :
+    files :
+      - lib/C89_pthread_ring_buffer/libringBuffer.a : {file_type : user, copyto : libringBuffer.a}
+      
+  header :
+    files :
+      - lib/C89_pthread_ring_buffer/ringBuffer.h : {file_type : cSource, is_include_file : true}
+  
+  tb:
+    files:
+      - tb/tb_vpi.v : {file_type : verilogSource}
+      - tb/rand_test.bin : {file_type : user, copyto : rand_test.bin}
+      - tb/count_test.bin: {file_type : user, copyto : count_test.bin}
+      
+  dep_gen:
+    depend:
+      - AFRL:utility:generators:0.0.0
+    
+vpi:
+  bin_file_io_vpi:
+    filesets : [src, header]
+    libs : [ringBuffer -L., pthread]
+  
+generate:
+  gen:
+    generator: vpilibmake
+    parameters:
+      src_dirs:  [lib/C89_pthread_ring_buffer]
+      
+targets:
+  default: &default
+    filesets: [lib, dep_gen]
+    generate: [gen]
+    vpi: [bin_file_io_vpi]
+    
+  sim:
+    <<: *default
+    default_tool: icarus
+    filesets_append: [tb]
+    toplevel: tb_vpi
