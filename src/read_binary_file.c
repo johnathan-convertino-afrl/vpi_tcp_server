@@ -145,6 +145,8 @@ PLI_INT32 read_binary_start_sim_cb(p_cb_data data)
   {
     vpi_printf("ERROR: $read_binary_file could not open file %s .\n", ps_process_data->p_file_name);
     
+    ps_process_data->error = 1;
+    
     vpi_control(vpiFinish, 1);
     
     return 0;
