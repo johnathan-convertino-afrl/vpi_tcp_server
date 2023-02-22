@@ -137,31 +137,31 @@ PLI_INT32 read_binary_start_sim_cb(p_cb_data data)
   
   ps_process_data = (struct s_process_data *)data->user_data;
   
-  error = pthread_create(&ps_process_data->thread, NULL, read_thread, ps_process_data);
-  
-  if(error)
-  {
-    vpi_printf("ERROR: $read_binary_file failed to create thread for file %s.\n", ps_process_data->p_file_name);
-    
-    ps_process_data->error = error;
-    
-    vpi_control(vpiFinish, 1);
-    
-    return 0;
-  }
+  vpi_put_userdata(ps_process_data->systf_handle, (void *)ps_process_data);
   
   ps_process_data->p_file = fopen(ps_process_data->p_file_name, "rb");
   
   if(!ps_process_data->p_file)
   {
-    vpi_printf("ERROR: $read_binary_file could not open file %s.\n", ps_process_data->p_file_name);
+    vpi_printf("ERROR: $read_binary_file could not open file %s .\n", ps_process_data->p_file_name);
     
     vpi_control(vpiFinish, 1);
     
     return 0;
   }
   
-  vpi_put_userdata(ps_process_data->systf_handle, (void *)ps_process_data);
+  error = pthread_create(&ps_process_data->thread, NULL, read_thread, ps_process_data);
+  
+  ps_process_data->error = error;
+  
+  if(error)
+  {
+    vpi_printf("ERROR: $read_binary_file failed to create thread for file %s.\n", ps_process_data->p_file_name);
+    
+    vpi_control(vpiFinish, 1);
+    
+    return 0;
+  }
   
   return 0;
 }
