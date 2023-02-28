@@ -64,22 +64,11 @@ module tb_vpi;
     begin
       num_wrote = $write_binary_file("count_test_out.bin", test_vector1);
       
-      $display("READ: %h %d  WRITE: %d", test_vector1, num_read, num_wrote);
-      
       if(num_read < 0)
       begin
         $display("END SIMULATION");
         $finish;
       end
     end
-    
-//     num_read = $read_binary_file("binary_file_io.o", test_vector2);
-//     
-//     if(num_read != 0)
-//     begin
-//       num_wrote = $write_binary_file("binary_file_io2.o", test_vector2);
-//       
-//       $display("READ: %h %d  WRITE: %d", test_vector2, num_read, num_wrote);
-//     end
   end
 endmodule

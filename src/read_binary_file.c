@@ -170,7 +170,6 @@ PLI_INT32 read_binary_start_sim_cb(p_cb_data data)
 
 //******************************************************************************
 /// @brief  Called by the simulator, each time it is requested.
-///         TODO
 //******************************************************************************
 PLI_INT32 read_binary_calltf(PLI_BYTE8 *user_data)
 {
@@ -222,7 +221,7 @@ PLI_INT32 read_binary_calltf(PLI_BYTE8 *user_data)
   
   return_value.value.integer = num_bytes_read;
   
-  if(ringBufferStillBlocking(ps_process_data->p_ringbuffer) || ringBufferIsEmpty(ps_process_data->p_ringbuffer))
+  if(!ringBufferStillBlocking(ps_process_data->p_ringbuffer) && ringBufferIsEmpty(ps_process_data->p_ringbuffer))
   {
     return_value.value.integer *= -1;
   }

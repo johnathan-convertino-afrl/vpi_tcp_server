@@ -16,17 +16,17 @@ filesets:
   
   lib :
     files :
-      - lib/C89_pthread_ring_buffer/libringBuffer.a : {file_type : user, copyto : libringBuffer.a}
+      - lib_ringbuffer/build/libringBuffer.a : {file_type : user, copyto : .}
       
   header :
     files :
-      - lib/C89_pthread_ring_buffer/ringBuffer.h : {file_type : cSource, is_include_file : true}
+      - lib_ringbuffer/ringBuffer.h : {file_type : cSource, is_include_file : true}
   
   tb:
     files:
       - tb/tb_vpi.v : {file_type : verilogSource}
-      - tb/rand_test.bin : {file_type : user, copyto : rand_test.bin}
-      - tb/count_test.bin: {file_type : user, copyto : count_test.bin}
+      - tb/rand_test.bin : {file_type : user, copyto : .}
+      - tb/count_test.bin: {file_type : user, copyto : .}
       
   dep_gen:
     depend:
@@ -38,15 +38,22 @@ vpi:
     libs : [ringBuffer -L., pthread]
   
 generate:
-  gen:
-    generator: vpilibmake
+  gen_git:
+    generator: git_pull
     parameters:
-      src_dirs:  [lib/C89_pthread_ring_buffer]
+      repo_url: [https://github.com/sparkletron/C89_pthread_ring_buffer.git]
+      repo_dir: [lib_ringbuffer]
+      tag: [release_v1.5.1]
+  gen_lib:
+    generator: vpilibcmake
+    parameters:
+      src_dirs:  [lib_ringbuffer]
+      cmake_args: "-DCMAKE_POSITION_INDEPENDENT_CODE=ON"
       
 targets:
   default: &default
     filesets: [lib, dep_gen]
-    generate: [gen]
+    generate: [gen_git, gen_lib]
     vpi: [bin_file_io_vpi]
     
   sim:
