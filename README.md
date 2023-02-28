@@ -1,5 +1,5 @@
 # VPI binary file io
-## read and write binary functions for VPI
+### read and write binary functions for VPI
 ---
 
    author: Jay Convertino   
@@ -11,8 +11,6 @@
    license: MIT   
    
 ---
-
-![rtl_img](./rtl.png)
 
 ### IP USAGE
 #### INSTRUCTIONS
@@ -60,3 +58,10 @@ targets:
 * fusesoc_info.core created.
 * Simulation uses icarus to run data through the core.
 
+#### TARGETS
+
+* RUN WITH: (fusesoc run --target=sim VENDER:CORE:NAME:VERSION)
+  - default (for IP integration builds)
+  - sim
+  - sim_rand_data
+  - sim_8bit_count_data

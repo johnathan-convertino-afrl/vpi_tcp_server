@@ -30,19 +30,21 @@
 `timescale 1 ns/10 ps
 
 // test normal operation
-module tb_vpi;
+module tb_vpi #(
+  parameter IN_FILE_NAME = "in.bin",
+  parameter OUT_FILE_NAME = "out.bin",
+  parameter BIT_WIDTH = 32);
+  
+  localparam CLK_PERIOD = 500;
+  
   reg tb_data_clk = 0;
 
-  reg [39:0] test_vector1;
-  reg [23:0] test_vector2;
+  reg [BIT_WIDTH-1:0] test_vector1;
   
   integer num_read  = 0;
   integer num_wrote = 0;
   
-  localparam CLK_PERIOD = 500;
-  
   initial begin
-    $display("START SIMULATION");
     $dumpfile ("tb_vpi.fst");
     $dumpvars (0, tb_vpi);
   end
@@ -55,18 +57,17 @@ module tb_vpi;
     #(CLK_PERIOD/4);
   end
   
-  //product data
+  //process data
   always @(posedge tb_data_clk)
   begin
-    num_read = $read_binary_file("count_test.bin", test_vector1);
+    num_read = $read_binary_file(IN_FILE_NAME, test_vector1);
     
     if(num_read != 0)
     begin
-      num_wrote = $write_binary_file("count_test_out.bin", test_vector1);
+      num_wrote = $write_binary_file(OUT_FILE_NAME, test_vector1);
       
       if(num_read < 0)
       begin
-        $display("END SIMULATION");
         $finish;
       end
     end
