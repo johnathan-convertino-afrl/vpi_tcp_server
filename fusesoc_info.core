@@ -54,12 +54,14 @@ generate:
       
 targets:
   default: &default
+    description: Intergration default target for simulations.
     filesets: [lib, dep_gen]
     generate: [gen_git, gen_lib]
     vpi: [bin_file_io_vpi]
     
   sim: &sim
     <<: *default
+    description: Test VPI file io.
     default_tool: icarus
     filesets_append: [tb, dep_tb]
     hooks:
@@ -71,12 +73,14 @@ targets:
     
   sim_rand_data:
     <<: *sim
+    description: Test VPI file io with random data.
     parameters:
       - IN_FILE_NAME=random.bin
       - OUT_FILE_NAME=out_random.bin
       
   sim_8bit_count_data:
     <<: *sim
+    description: Test VPI file io with count data.
     parameters:
       - IN_FILE_NAME=8bit_count.bin
       - OUT_FILE_NAME=out_8bit_count.bin
