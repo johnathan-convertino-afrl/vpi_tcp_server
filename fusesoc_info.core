@@ -32,7 +32,7 @@ filesets:
       
   dep_gen:
     depend:
-      - AFRL:utility:generators:0.0.0
+      - AFRL:utility:generators:1.0.0
     
 vpi:
   bin_file_io_vpi:
@@ -43,13 +43,13 @@ generate:
   gen_git:
     generator: git_pull
     parameters:
-      repo_url: [https://github.com/sparkletron/C89_pthread_ring_buffer.git]
-      repo_dir: [lib_ringbuffer]
-      tag: [release_v1.5.1]
+      repo_url: https://github.com/sparkletron/C89_pthread_ring_buffer.git
+      repo_dir: lib_ringbuffer
+      tag: release_v1.5.1
   gen_lib:
     generator: vpilibcmake
     parameters:
-      src_dirs:  [lib_ringbuffer]
+      src_dir:  lib_ringbuffer
       cmake_args: "-DCMAKE_POSITION_INDEPENDENT_CODE=ON"
       
 targets:
