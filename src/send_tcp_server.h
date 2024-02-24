@@ -1,11 +1,11 @@
 //******************************************************************************
-/// @file   binary_file_io.h
+/// @file   send_tcp_server.h
 /// @author Jay Convertino(johnathan.convertino.1@us.af.mil)
-/// @date   2023-20-1
-/// @brief  Functions to write raw binary files properly in verilog.
+/// @date   2024-24-2
+/// @brief  Function to send data over a tcp server
 ///
 /// @LICENSE MIT
-///  Copyright 2023 Jay Convertino
+///  Copyright 2024 Jay Convertino
 ///
 ///  Permission is hereby granted, free of charge, to any person obtaining a copy
 ///  of this software and associated documentation files (the "Software"), to 
@@ -26,60 +26,20 @@
 ///  IN THE SOFTWARE.
 //******************************************************************************
 
-#ifndef __BINARY_FILE_IO
-#define __BINARY_FILE_IO
+#ifndef __SEND_TCP_SERVER
+#define __SEND_TCP_SERVER
 
-// c standard libraries
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-// other libs
-#include <pthread.h>
 // Include the VPI library of routines (object based).
 #include <vpi_user.h>
-// include ringbuffer library
-#include "ringBuffer.h"
-
-//ring buffer sizes
-// 4 MB
-#define BUFFSIZE  (1 << 23)
-// 1 MB
-#define DATACHUNK (1 << 21)
-
-#define READ_NAME   "$read_binary_file"
-#define WRITE_NAME  "$write_binary_file"
-
-struct s_process_data
-{
-  PLI_INT32 error;
-  PLI_INT32 num_ab_val_pairs;
-  PLI_INT32 array_byte_size;
-  
-  char * p_file_name;
-  
-  struct s_ringBuffer *p_ringbuffer;
-  
-  FILE *p_file;
-  
-  pthread_t thread;
-  
-  vpiHandle systf_handle;
-  vpiHandle arg2_handle;
-};
 
 //******************************************************************************
-/// @brief BINARY FILE END COMPILE CALLBACK
+/// @brief SEND TCP SERVER DATA COMPILE SETUP
 //******************************************************************************
-PLI_INT32 binary_end_compile_cb(p_cb_data data);
+PLI_INT32 send_tcp_server_compiletf(PLI_BYTE8 *user_data);
 
 //******************************************************************************
-/// @brief BINARY FILE END SIM CALLBACK
+/// @brief  Called by the simulator, each time it is requested.
 //******************************************************************************
-PLI_INT32 binary_end_sim_cb(p_cb_data data);
-
-//******************************************************************************
-/// @brief  Returns the size, in bits, of the function return type.
-//******************************************************************************
-PLI_INT32 binary_sizetf(PLI_BYTE8 *user_data);
+PLI_INT32 send_tcp_server_calltf(PLI_BYTE8 *user_data);
 
 #endif

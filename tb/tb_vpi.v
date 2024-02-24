@@ -30,23 +30,26 @@
 `timescale 1 ns/10 ps
 
 // test normal operation
-module tb_vpi #(
-  parameter IN_FILE_NAME = "in.bin",
-  parameter OUT_FILE_NAME = "out.bin",
-  parameter BIT_WIDTH = 32);
+module tb_vpi ();
   
-  localparam CLK_PERIOD = 500;
+  localparam CLK_PERIOD = 100;
   
   reg tb_data_clk = 0;
-
-  reg [BIT_WIDTH-1:0] test_vector1;
   
-  integer num_read  = 0;
-  integer num_wrote = 0;
+  integer index_num = 0;
+  integer index_num1= 1;
+  integer return_value = 0;
+
+  reg [31:0] dump_data;
   
   initial begin
     $dumpfile ("tb_vpi.fst");
     $dumpvars (0, tb_vpi);
+
+    index_num = $setup_tcp_server("127.0.0.1", 4444);
+    $display(index_num);
+    index_num1 = $setup_tcp_server("127.0.0.1", 5555);
+    $display(index_num1);
   end
 
   //clock
@@ -54,22 +57,21 @@ module tb_vpi #(
   begin
     tb_data_clk <= ~tb_data_clk;
     
-    #(CLK_PERIOD/4);
+    #(CLK_PERIOD/2);
   end
   
   //process data
   always @(posedge tb_data_clk)
   begin
-    num_read = $read_binary_file(IN_FILE_NAME, test_vector1);
-    
-    if(num_read != 0)
-    begin
-      num_wrote = $write_binary_file(OUT_FILE_NAME, test_vector1);
-      
-      if(num_read < 0)
+      return_value = $recv_tcp_server(index_num, dump_data);
+
+      if(return_value > 0)
       begin
-        $finish;
+        $display(return_value);
+        $display(dump_data);
+        return_value = $send_tcp_server(index_num, dump_data);
+        $display(return_value);
       end
-    end
   end
+
 endmodule

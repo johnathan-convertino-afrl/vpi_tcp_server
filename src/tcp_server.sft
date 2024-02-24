@@ -3,5 +3,6 @@
 #******************************************************************************
 
 # sft declarations 
-$read_binary_file   vpiSysFuncInt
-$write_binary_file  vpiSysFuncInt
+$setup_tcp_server   vpiSysFuncInt
+#$recv_tcp_server  vpiSysFuncInt
+#$send_tcp_server  vpiSysFuncInt

@@ -1,11 +1,11 @@
 //******************************************************************************
-/// @file   write_binary_file.h
+/// @file   tcp_server.h
 /// @author Jay Convertino(johnathan.convertino.1@us.af.mil)
-/// @date   2023-20-1
-/// @brief  Functions to write raw binary files properly in verilog.
+/// @date   2024-23-02
+/// @brief  Functions to create multiple TCP servers
 ///
 /// @LICENSE MIT
-///  Copyright 2023 Jay Convertino
+///  Copyright 2024 Jay Convertino
 ///
 ///  Permission is hereby granted, free of charge, to any person obtaining a copy
 ///  of this software and associated documentation files (the "Software"), to 
@@ -26,21 +26,72 @@
 ///  IN THE SOFTWARE.
 //******************************************************************************
 
-#ifndef __WRITE_BINARY_FILE
-#define __WRITE_BINARY_FILE
+#ifndef __VPI_TCP_SERVER
+#define __VPI_TCP_SERVER
 
+// c standard libraries
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+// other libs
+// threads
+#include <pthread.h>
+// tcp
+#include <unistd.h>
+#include <poll.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <sys/types.h>
 // Include the VPI library of routines (object based).
 #include <vpi_user.h>
+// include ringbuffer library
+#include "ringBuffer.h"
 
-//******************************************************************************
-/// @brief WRITE BINARY FILE START SIM CALLBACK
-//******************************************************************************
-PLI_INT32 write_binary_start_sim_cb(p_cb_data data);
+//ring buffer sizes
+// 4 MB
+#define BUFFSIZE  (1 << 23)
+// 1 MB
+#define DATACHUNK (1 << 21)
 
-//******************************************************************************
-/// @brief  Called by the simulator, each time it is requested.
-///         TODO
-//******************************************************************************
-PLI_INT32 write_binary_calltf(PLI_BYTE8 *user_data);
+#define MAX_CONNECTIONS 256
+
+#define RECV_NAME  "$recv_tcp_server"
+#define SEND_NAME  "$send_tcp_server"
+#define SETUP_NAME "$setup_tcp_server"
+
+struct s_process_data
+{
+  // PLI_INT32 error;
+  PLI_INT32 num_ab_val_pairs;
+  PLI_INT32 array_byte_size;
+  
+  struct s_ringBuffer *p_ringbuffer;
+  
+  pthread_t thread;
+
+  vpiHandle systf_handle;
+  vpiHandle arg2_handle;
+};
+
+struct s_send_tcp_server
+{
+  int kill_thread;
+
+  struct pollfd poll_connection;
+  struct sockaddr_in *p_socket_info;
+
+  pthread_t connection_thread;
+
+  char *p_address;
+  unsigned short port;
+
+  vpiHandle systf_handle;
+
+  struct s_process_data recv_process_data;
+  struct s_process_data send_process_data;
+};
+
+extern struct s_send_tcp_server g_send_tcp_server[MAX_CONNECTIONS];
 
 #endif

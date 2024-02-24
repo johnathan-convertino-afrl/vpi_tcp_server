@@ -1,15 +1,14 @@
 //******************************************************************************
-/// @file     read_binary_file.h
+/// @file     recv_tcp_server.h
 /// @author   Jay Convertino(johnathan.convertino.1@us.af.mil)
-/// @date     2023-20-1
-/// @brief    Functions to write raw binary files properly in verilog.
-/// @details  $read_binary_file takes 2 arguments. First the file name, next
-///           a register for data in size bytes.
-///           The function returns the number of bytes read. If it is a negative
-///           number, that indicates EOF. 
+/// @date     2024-02-22
+/// @brief    Functions for TCP server data receive.
+/// @details  $recv_tcp_server takes 2 arguments. First the fd returned from
+///           $setup_tcp_server, and then a register for data in size bytes.
+///           The function returns the number of bytes read.
 ///
 /// @LICENSE MIT
-///  Copyright 2023 Jay Convertino
+///  Copyright 2024 Jay Convertino
 ///
 ///  Permission is hereby granted, free of charge, to any person obtaining a copy
 ///  of this software and associated documentation files (the "Software"), to 
@@ -30,20 +29,20 @@
 ///  IN THE SOFTWARE.
 //******************************************************************************
 
-#ifndef __READ_FILE_IO
-#define __READ_FILE_IO
+#ifndef __RECV_TCP_SERVER
+#define __RECV_TCP_SERVER
 
 // Include the VPI library of routines (object based).
 #include <vpi_user.h>
 
 //******************************************************************************
-/// @brief READ BINARY FILE START SIM CALLBACK
+/// @brief RECEIVE TCP SERVER DATA COMPILE SETUP
 //******************************************************************************
-PLI_INT32 read_binary_start_sim_cb(p_cb_data data);
+PLI_INT32 recv_tcp_server_compiletf(PLI_BYTE8 *user_data);
 
 //******************************************************************************
-/// @brief  read_binary_calltf is a callback for the read_binary_file function.
+/// @brief  read_binary_calltf is a callback for the recv_tcp_server function.
 //******************************************************************************
-PLI_INT32 read_binary_calltf(PLI_BYTE8 *user_data);
+PLI_INT32 recv_tcp_server_calltf(PLI_BYTE8 *user_data);
 
 #endif
