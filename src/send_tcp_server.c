@@ -166,8 +166,6 @@ PLI_INT32 send_tcp_server_start_sim_cb(p_cb_data data)
 
   p_index = (int *)data->user_data;
 
-  vpi_printf("INDEX BEFORE: %d\n", *p_index);
-
   vpi_put_userdata(g_send_tcp_server[*p_index].send_process_data.systf_handle, (void *)p_index);
 
   g_send_tcp_server[*p_index].send_process_data.p_ringbuffer = initRingBuffer(BUFFSIZE, sizeof(s_vpi_vecval));
@@ -215,9 +213,6 @@ PLI_INT32 send_tcp_server_compiletf(PLI_BYTE8 *user_data)
 
   PLI_BYTE8 *p_func_name = NULL;
 
-  s_vpi_value fd;
-  // s_vpi_value data;
-
   // vpi_register_cb copies the data in these structs per the verilog-2001 standard. cute.
   s_cb_data start_sim_cb_data;
   s_cb_data end_sim_cb_data;
@@ -256,10 +251,6 @@ PLI_INT32 send_tcp_server_compiletf(PLI_BYTE8 *user_data)
 
       return 0;
   }
-
-  fd.format = vpiIntVal;
-
-  vpi_get_value(arg1_handle, &fd);
 
   // check for a second argument, this should return a vector.
   arg2_handle = vpi_scan(arg_iterate);
@@ -311,26 +302,25 @@ PLI_INT32 send_tcp_server_compiletf(PLI_BYTE8 *user_data)
 
   num_ab_val_pairs = ((array_byte_size-1)/sizeof(PLI_INT32) + 1);
 
-  p_index = malloc(sizeof(int));
-
-  if(!p_index)
-  {
-    vpi_printf("ERROR: malloc failed.\n");
-
-    vpi_control(vpiFinish, 1);
-
-    return 0;
-  }
-
-  *p_index = fd.value.integer;
-
-  vpi_printf("INDEX VALUE AT COMPILE: %d\n", *p_index);
-
-  g_send_tcp_server[*p_index].send_process_data.systf_handle = systf_handle;
-  g_send_tcp_server[*p_index].send_process_data.arg2_handle = arg2_handle;
-
-  g_send_tcp_server[*p_index].send_process_data.array_byte_size = array_byte_size;
-  g_send_tcp_server[*p_index].send_process_data.num_ab_val_pairs = num_ab_val_pairs;
+  // INDEX IS NOT AVAILABLE TILL SIMULATION TIME
+  // p_index = malloc(sizeof(int));
+  //
+  // if(!p_index)
+  // {
+  //   vpi_printf("ERROR: malloc failed.\n");
+  //
+  //   vpi_control(vpiFinish, 1);
+  //
+  //   return 0;
+  // }
+  //
+  // *p_index = fd.value.integer;
+  //
+  // g_send_tcp_server[*p_index].send_process_data.systf_handle = systf_handle;
+  // g_send_tcp_server[*p_index].send_process_data.arg2_handle = arg2_handle;
+  //
+  // g_send_tcp_server[*p_index].send_process_data.array_byte_size = array_byte_size;
+  // g_send_tcp_server[*p_index].send_process_data.num_ab_val_pairs = num_ab_val_pairs;
 
   // setup callback for start of simulation, well before it starts.
   start_sim_cb_data.reason    = cbStartOfSimulation;
@@ -381,11 +371,9 @@ PLI_INT32 send_tcp_server_calltf(PLI_BYTE8 *user_data)
   
   p_index = (int *)vpi_get_userdata(systf_handle);
   
-  if(!p_index)
-  {
-    vpi_printf("INDEX NULL\n");
-    return 0;
-  }
+  vpi_printf("SENDING FOR INDEX: %d\n", *p_index);
+
+  if(!p_index) return 0;
   
   vector_value.format = vpiVectorVal;
   

@@ -36,9 +36,10 @@ module tb_vpi ();
   
   reg tb_data_clk = 0;
   
-  integer index_num = 0;
-  integer index_num1= 1;
-  integer return_value = 0;
+  integer fd0 = 1;
+  integer fd1 = 1;
+  integer return_value0 = 0;
+  integer return_value1 = 0;
 
   reg [31:0] dump_data;
   
@@ -46,10 +47,10 @@ module tb_vpi ();
     $dumpfile ("tb_vpi.fst");
     $dumpvars (0, tb_vpi);
 
-    index_num = $setup_tcp_server("127.0.0.1", 4444);
-    $display(index_num);
-    index_num1 = $setup_tcp_server("127.0.0.1", 5555);
-    $display(index_num1);
+    fd0 = $setup_tcp_server("127.0.0.1", 4444);
+    fd1 = $setup_tcp_server("127.0.0.1", 5555);
+    $display(fd0);
+    $display(fd1);
   end
 
   //clock
@@ -63,14 +64,19 @@ module tb_vpi ();
   //process data
   always @(posedge tb_data_clk)
   begin
-      return_value = $recv_tcp_server(index_num, dump_data);
+      return_value0 = $recv_tcp_server(fd0, dump_data);
 
-      if(return_value > 0)
+      if(return_value0 > 0)
       begin
-        $display(return_value);
-        $display(dump_data);
-        return_value = $send_tcp_server(index_num, dump_data);
-        $display(return_value);
+        return_value0 = $send_tcp_server(fd0, dump_data);
+      end
+
+      return_value1 = $recv_tcp_server(fd1, dump_data);
+
+      if(return_value1 > 0)
+      begin
+        $display(return_value1);
+        return_value1 = $send_tcp_server(fd1, dump_data);
       end
   end
 

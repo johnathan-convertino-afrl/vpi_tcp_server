@@ -169,9 +169,14 @@ PLI_INT32 recv_tcp_server_end_sim_cb(p_cb_data data)
 PLI_INT32 recv_tcp_server_start_sim_cb(p_cb_data data)
 {
   int error = 0;
-  int *p_index;
+  int *p_index = 0;
+  s_vpi_value fd;
 
   p_index = (int *)data->user_data;
+
+  // fd.format = vpiIntVal;
+
+  // vpi_get_value(p_data.arg1_handle, &fd);
 
   // vpi_printf("INDEX BEFORE: %d\n", *p_index);
 
@@ -253,17 +258,19 @@ PLI_INT32 recv_tcp_server_compiletf(PLI_BYTE8 *user_data)
 
   arg_type = vpi_get(vpiType, arg1_handle);
 
-  if(arg_type != vpiIntegerVar)
-  {
-      vpi_printf("ERROR: %s requires first argument is a descriptor from setup_tcp_server.\n", p_func_name);
-      vpi_free_object(arg_iterate);
-
-      vpi_control(vpiFinish, 1);
-
-      return 0;
-  }
+  // if(arg_type != vpiIntegerVar)
+  // {
+  //     vpi_printf("ERROR: %s requires first argument is a descriptor from setup_tcp_server.\n", p_func_name);
+  //     vpi_free_object(arg_iterate);
+  //
+  //     vpi_control(vpiFinish, 1);
+  //
+  //     return 0;
+  // }
 
   fd.format = vpiIntVal;
+
+  vpi_printf("VPI INDEXS: %d\n", fd.value.integer);
 
   vpi_get_value(arg1_handle, &fd);
 
@@ -306,7 +313,7 @@ PLI_INT32 recv_tcp_server_compiletf(PLI_BYTE8 *user_data)
 
   if((vector_size%8) != 0)
   {
-    vpi_printf("ERROR: %s for server fd %d, has to have a vector that is some number of bytes.\n", p_func_name, fd.value.integer);
+    vpi_printf("ERROR: %s has to have a vector that is some number of bytes.\n", p_func_name);
 
     vpi_control(vpiFinish, 1);
 
@@ -330,8 +337,11 @@ PLI_INT32 recv_tcp_server_compiletf(PLI_BYTE8 *user_data)
 
   *p_index = fd.value.integer;
 
+  vpi_printf("VPI INDEXS: %d\n", fd.value.integer);
+
   g_send_tcp_server[*p_index].recv_process_data.systf_handle = systf_handle;
   g_send_tcp_server[*p_index].recv_process_data.arg2_handle = arg2_handle;
+  g_send_tcp_server[*p_index].recv_process_data.arg1_handle = arg1_handle;
 
   g_send_tcp_server[*p_index].recv_process_data.array_byte_size = array_byte_size;
   g_send_tcp_server[*p_index].recv_process_data.num_ab_val_pairs = num_ab_val_pairs;
@@ -385,11 +395,7 @@ PLI_INT32 recv_tcp_server_calltf(PLI_BYTE8 *user_data)
   
   p_index = (int *)vpi_get_userdata(systf_handle);
 
-  if(!p_index)
-  {
-    // vpi_printf("INDEX NULL\n");
-    return 0;
-  }
+  if(!p_index) return 0;
   
   s_vpi_vecval vecval_buffer[g_send_tcp_server[*p_index].recv_process_data.num_ab_val_pairs];
   
@@ -416,6 +422,8 @@ PLI_INT32 recv_tcp_server_calltf(PLI_BYTE8 *user_data)
   }
   
   return_value.value.integer = num_bytes_read;
+
+  if(num_bytes_read > 0) vpi_printf("RECV FOR INDEX: %d\n", *p_index);
   
   // if(!ringBufferStillBlocking(g_send_tcp_server[*p_index].recv_process_data.p_ringbuffer) && ringBufferIsEmpty(g_send_tcp_server[*p_index].recv_process_data.p_ringbuffer))
   // {

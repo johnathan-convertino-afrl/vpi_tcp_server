@@ -71,6 +71,7 @@ struct s_process_data
   pthread_t thread;
 
   vpiHandle systf_handle;
+  vpiHandle arg1_handle;
   vpiHandle arg2_handle;
 };
 
