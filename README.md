@@ -1,12 +1,12 @@
-# VPI binary file io
-### read and write binary functions for VPI
+# VPI TCP server
+### TCP server functions for VPI
 ---
 
    author: Jay Convertino   
    
-   date: 2023.01.01  
+   date: 2024.02.24
    
-   details: Read and write binary file functions for VPI. This is threaded and does all file IO outside of the simulation function call.   
+   details: TCP server functions for VPI VPI. This is threaded and does all recv/send IO outside of the simulation function call.
    
    license: MIT   
    
@@ -22,21 +22,25 @@
 ### IP USAGE
 #### INSTRUCTIONS
 
-This library provides two functions.  
-* read_binary_file(FILE_NAME, VECTOR)
-* write_binary_file(FILE_NAME, VECTOR)
+This library provides three functions.
+* setup_tcp_server(ADDRESS, PORT)
+  * RETURNS File Descriptor (FD)
+* recv_tcp_server(FD, VECTOR)
+  * RETURNS number of bytes received (non-blocking, 0 is nothing available)
+* send_tcp_server(FD, VECTOR)
+  * RETURNS number of bytes send (non-blocking, 0 is nothing written)
 
-Each instance is a new instance, and will start reading the file from the start.  
-The vector has to be in size bytes from 1 to any number of bytes. Each function  
-returns the number of bytes read or writen. Z or X place in the vector indicates
-bytes not available for read, or do not write these bytes for write. The read funciton
-will return a negative number of bytes when the end of file is reached.
+Library supports up to 256 TCP server instances. Each instance is setup by
+setup_tcp_server. This returns a descriptor for that instance. Then that descriptor
+is used with recv_tcp_server to obtain data received by the server, or used with
+send_tcp_server to provide data to the server to send. Same descriptor can be used
+for both functions. Testbench is a simple loopback test of two servers.
 
 ##### Dependency include for fusesoc core file
 ``` 
   dep_vpi:
     depend:
-      - AFRL:vpi:binary_file_io:1.0.0
+      - AFRL:vpi:tcp_server:1.0.0
       
 targets:
   default: &default
@@ -46,19 +50,17 @@ targets:
 ### COMPONENTS
 #### SRC
 
-* binary_file_io.c
-* binary_file_io.h
-* binary_file_io.sft
-* read_binary_file.c
-* read_binary_file.h
-* write_binary_file.c
-* write_binary_file.h
+* tcp_server.c
+* tcp_server.h
+* tcp_server.sft
+* recv_tcp_server.c
+* recv_tcp_server.h
+* send_tcp_server.c
+* send_tcp_server.h
   
 #### TB
 
 * tb_vpi.v
-* count_test.bin
-* rand_test.bin
 
 ### fusesoc
 
@@ -70,5 +72,3 @@ targets:
 * RUN WITH: (fusesoc run --target=sim VENDER:CORE:NAME:VERSION)
   - default (for IP integration builds)
   - sim
-  - sim_rand_data
-  - sim_8bit_count_data
