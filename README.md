@@ -25,16 +25,15 @@
 This library provides three functions.
 * setup_tcp_server(ADDRESS, PORT)
   * RETURNS File Descriptor (FD)
-* recv_tcp_server(FD, VECTOR)
+* recv_tcp_server(PORT, VECTOR)
   * RETURNS number of bytes received (non-blocking, 0 is nothing available)
-* send_tcp_server(FD, VECTOR)
+* send_tcp_server(PORT, VECTOR)
   * RETURNS number of bytes send (non-blocking, 0 is nothing written)
 
 Library supports up to 256 TCP server instances. Each instance is setup by
 setup_tcp_server. This returns a descriptor for that instance. Then that descriptor
-is used with recv_tcp_server to obtain data received by the server, or used with
-send_tcp_server to provide data to the server to send. Same descriptor can be used
-for both functions. Testbench is a simple loopback test of two servers.
+is used for nothing. The field PORT is used to associate setup_tcp_server with a recv_tcp_server
+and a send_tcp_server. This can be done in multiple calls.
 
 ##### Dependency include for fusesoc core file
 ``` 

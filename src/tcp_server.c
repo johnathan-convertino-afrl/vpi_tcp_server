@@ -42,11 +42,9 @@ void* connection_keep_alive(void *p_data);
 //******************************************************************************
 PLI_INT32 setup_tcp_server_start_sim_cb(p_cb_data data)
 {
-  int *p_index;
+  int *p_index = NULL;
 
   p_index = (int *)data->user_data;
-
-  // vpi_printf("INDEX BEFORE: %d\n", *p_index);
 
   vpi_put_userdata(g_send_tcp_server[*p_index].systf_handle, (void *)p_index);
 
@@ -81,7 +79,7 @@ PLI_INT32 setup_tcp_server_start_sim_cb(p_cb_data data)
 //******************************************************************************
 PLI_INT32 setup_tcp_server_end_sim_cb(p_cb_data data)
 {
-  int *p_index;
+  int *p_index = NULL;
 
   p_index = (int *)data->user_data;
 
@@ -124,7 +122,7 @@ PLI_INT32 setup_tcp_server_compiletf(PLI_BYTE8 *user_data)
   (void)user_data;
   
   //variables
-  int *p_index;
+  int *p_index = NULL;
 
   PLI_INT32 arg_type = 0;
   // PLI_INT32 vector_size;
@@ -161,6 +159,17 @@ PLI_INT32 setup_tcp_server_compiletf(PLI_BYTE8 *user_data)
   
   // check the type of the first handle, if it doesn't match, quit.
   arg1_handle = vpi_scan(arg_iterate);
+
+  if(!arg1_handle)
+  {
+    vpi_printf("ERROR: %s requires a first argument.\n", p_func_name);
+
+    vpi_free_object(arg_iterate);
+
+    vpi_control(vpiFinish, 1);
+
+    return 0;
+  }
   
   arg_type = vpi_get(vpiConstType, arg1_handle);
   
@@ -181,6 +190,17 @@ PLI_INT32 setup_tcp_server_compiletf(PLI_BYTE8 *user_data)
 
   // check for a second argument, this should return a vector.
   arg2_handle = vpi_scan(arg_iterate);
+
+  if(!arg2_handle)
+  {
+    vpi_printf("ERROR: %s requires a second argument.\n", p_func_name);
+
+    vpi_free_object(arg_iterate);
+
+    vpi_control(vpiFinish, 1);
+
+    return 0;
+  }
   
   arg_type = vpi_get(vpiType, arg2_handle);
 
@@ -235,7 +255,6 @@ PLI_INT32 setup_tcp_server_compiletf(PLI_BYTE8 *user_data)
   g_send_tcp_server[*p_index].systf_handle = systf_handle;
   g_send_tcp_server[*p_index].p_socket_info = NULL;
 
-  
   // setup callback for start of simulation, well before it starts.
   start_sim_cb_data.reason    = cbStartOfSimulation;
   start_sim_cb_data.cb_rtn    = setup_tcp_server_start_sim_cb;
@@ -280,8 +299,6 @@ PLI_INT32 setup_tcp_server_calltf(PLI_BYTE8 *user_data)
   p_index = (int *)vpi_get_userdata(systf_handle);
 
   if(!p_index) return -1;
-
-  // vpi_printf("CALLTF %d\n", *p_index);
 
   return_value.format = vpiIntVal;
 
@@ -355,10 +372,13 @@ void (*vlog_startup_routines[])(void) = {
 
 void* connection_keep_alive(void *p_data)
 {
-  int error = 0;
+  int error           = 0;
+  int prev_revents    = 0;
   unsigned socket_len = 0;
 
   int *p_index = NULL;
+
+  char p_buffer[16];
 
   p_index = (int *)p_data;
 
@@ -460,17 +480,34 @@ void* connection_keep_alive(void *p_data)
         continue;
       }
 
-      g_send_tcp_server[*p_index].poll_connection.events = POLLIN | POLLOUT | POLLHUP;
+      g_send_tcp_server[*p_index].poll_connection.events = POLLIN | POLLOUT;
     }
 
-    vpi_printf("TCP CLIENT CONNECTED TO  %s : %d\n", g_send_tcp_server[*p_index].p_address, g_send_tcp_server[*p_index].port);
+    vpi_printf("TCP CLIENT CONNECTED TO %s : %d\n", g_send_tcp_server[*p_index].p_address, g_send_tcp_server[*p_index].port);
+
+    prev_revents = g_send_tcp_server[*p_index].poll_connection.revents;
 
     // while connected, just wait till dissconnect or kill_thread
     for(;;)
     {
+      int num_bytes_read = 0;
+
+      error = poll(&g_send_tcp_server[*p_index].poll_connection, 1, 0);
+
+      if(error <= 0) continue;
+
       if(g_send_tcp_server[*p_index].poll_connection.revents & POLLHUP) break;
       if(g_send_tcp_server[*p_index].poll_connection.revents & POLLERR) break;
       if(g_send_tcp_server[*p_index].kill_thread) break;
+
+      if(prev_revents != g_send_tcp_server[*p_index].poll_connection.revents)
+      {
+        prev_revents = g_send_tcp_server[*p_index].poll_connection.revents;
+
+        num_bytes_read = recv(g_send_tcp_server[*p_index].poll_connection.fd, p_buffer, 16, MSG_PEEK);
+
+        if(num_bytes_read <= 0) break;
+      }
     };
 
     vpi_printf("TCP SERVER DISCONNECTED\n");
@@ -481,7 +518,7 @@ void* connection_keep_alive(void *p_data)
   }
   while(!g_send_tcp_server[*p_index].kill_thread);
 
-  // vpi_printf("TCP SERVER SHUTTING DOWN\n\n");
+  vpi_printf("TCP SERVER SHUTTING DOWN\n");
 
   close(poll_socket.fd);
 

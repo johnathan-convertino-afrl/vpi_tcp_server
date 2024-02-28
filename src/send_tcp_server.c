@@ -34,11 +34,11 @@
 //******************************************************************************
 void *send_thread(void *data)
 {
-  PLI_UBYTE8 *p_file_buffer = NULL;
+  PLI_UBYTE8 *p_send_buffer = NULL;
   
   s_vpi_vecval *p_vecval_buffer = NULL;
   
-  int *p_index;
+  int *p_index = NULL;
 
   p_index = (int *)data;
 
@@ -51,9 +51,9 @@ void *send_thread(void *data)
     return NULL;
   }
   
-  p_file_buffer = malloc(DATACHUNK);
+  p_send_buffer = malloc(DATACHUNK);
   
-  if(!p_file_buffer)
+  if(!p_send_buffer)
   {
     vpi_printf("ERROR: Could not allocate send_thread buffer.\n");
 
@@ -70,7 +70,7 @@ void *send_thread(void *data)
 
     vpi_control(vpiFinish, 1);
     
-    free(p_file_buffer);
+    free(p_send_buffer);
     
     return NULL;
   }
@@ -111,7 +111,7 @@ void *send_thread(void *data)
         }
         else
         {
-          p_file_buffer[index - num_byte_z] = (PLI_UBYTE8)(p_vecval_buffer[index/sizeof(PLI_INT32)].aval >> (PLI_INT32)(index%(sizeof(PLI_INT32)) * 8));
+          p_send_buffer[index - num_byte_z] = (PLI_UBYTE8)(p_vecval_buffer[index/sizeof(PLI_INT32)].aval >> (PLI_INT32)(index%(sizeof(PLI_INT32)) * 8));
         }
       }
 
@@ -119,7 +119,7 @@ void *send_thread(void *data)
 
       do
       {
-        num_byte_wrote += send(g_send_tcp_server[*p_index].poll_connection.fd, p_file_buffer + num_byte_wrote, (size_t)(num_byte_read - num_byte_wrote), MSG_DONTWAIT);
+        num_byte_wrote += send(g_send_tcp_server[*p_index].poll_connection.fd, p_send_buffer + num_byte_wrote, (size_t)(num_byte_read - num_byte_wrote), MSG_DONTWAIT);
       } while(num_byte_read < num_byte_wrote);
 
       if(num_byte_wrote <= 0) continue;
@@ -127,7 +127,7 @@ void *send_thread(void *data)
 
   } while(ringBufferStillBlocking(g_send_tcp_server[*p_index].send_process_data.p_ringbuffer) || getRingBufferReadByteSize(g_send_tcp_server[*p_index].send_process_data.p_ringbuffer));
   
-  free(p_file_buffer);
+  free(p_send_buffer);
   
   free(p_vecval_buffer);
   
@@ -139,17 +139,20 @@ void *send_thread(void *data)
 //******************************************************************************
 PLI_INT32 send_tcp_server_end_sim_cb(p_cb_data data)
 {
-  int *p_index;
+  int *p_index = NULL;
 
   p_index = (int *)data->user_data;
 
   g_send_tcp_server[*p_index].kill_thread = 1;
 
-  ringBufferEndBlocking(g_send_tcp_server[*p_index].send_process_data.p_ringbuffer);
+  if(g_send_tcp_server[*p_index].send_process_data.p_ringbuffer)
+  {
+    ringBufferEndBlocking(g_send_tcp_server[*p_index].send_process_data.p_ringbuffer);
 
-  pthread_join(g_send_tcp_server[*p_index].send_process_data.thread, NULL);
+    pthread_join(g_send_tcp_server[*p_index].send_process_data.thread, NULL);
 
-  freeRingBuffer(&g_send_tcp_server[*p_index].send_process_data.p_ringbuffer);
+    freeRingBuffer(&g_send_tcp_server[*p_index].send_process_data.p_ringbuffer);
+  }
 
   free(p_index);
 
@@ -163,6 +166,7 @@ PLI_INT32 send_tcp_server_start_sim_cb(p_cb_data data)
 {
   int error = 0;
   int *p_index = NULL;
+  s_vpi_value fd;
 
   p_index = (int *)data->user_data;
 
@@ -204,12 +208,14 @@ PLI_INT32 send_tcp_server_compiletf(PLI_BYTE8 *user_data)
   (void)user_data;
 
   //variables
-  int *p_index;
+  int *p_index = NULL;
 
   PLI_INT32 arg_type = 0;
   PLI_INT32 vector_size;
   PLI_INT32 array_byte_size;
   PLI_INT32 num_ab_val_pairs;
+
+  s_vpi_value fd;
 
   PLI_BYTE8 *p_func_name = NULL;
 
@@ -239,11 +245,9 @@ PLI_INT32 send_tcp_server_compiletf(PLI_BYTE8 *user_data)
   // check the type of the first handle, if it doesn't match as a int, quit.
   arg1_handle = vpi_scan(arg_iterate);
 
-  arg_type = vpi_get(vpiType, arg1_handle);
-
-  if(arg_type != vpiIntegerVar)
+  if(arg_type != arg1_handle)
   {
-      vpi_printf("ERROR: %s requires first argument is a descriptor from setup_tcp_server.\n", p_func_name);
+      vpi_printf("ERROR: %s requires two arguments.\n", p_func_name);
 
       vpi_free_object(arg_iterate);
 
@@ -252,8 +256,36 @@ PLI_INT32 send_tcp_server_compiletf(PLI_BYTE8 *user_data)
       return 0;
   }
 
+  arg_type = vpi_get(vpiType, arg1_handle);
+
+  if(arg_type != vpiConstant)
+  {
+      vpi_printf("ERROR: %s requires first argument is a port number.\n", p_func_name);
+
+      vpi_free_object(arg_iterate);
+
+      vpi_control(vpiFinish, 1);
+
+      return 0;
+  }
+
+  fd.format = vpiIntVal;
+
+  vpi_get_value(arg1_handle, &fd);
+
   // check for a second argument, this should return a vector.
   arg2_handle = vpi_scan(arg_iterate);
+
+  if(arg_type != arg2_handle)
+  {
+      vpi_printf("ERROR: %s requires two arguments.\n", p_func_name);
+
+      vpi_free_object(arg_iterate);
+
+      vpi_control(vpiFinish, 1);
+
+      return 0;
+  }
 
   arg_type = vpi_get(vpiType, arg2_handle);
 
@@ -291,36 +323,51 @@ PLI_INT32 send_tcp_server_compiletf(PLI_BYTE8 *user_data)
 
   if((vector_size%8) != 0)
   {
-    vpi_printf("ERROR: %s for server fd %d, has to have a vector that is some number of bytes.\n", p_func_name, fd.value.integer);
+    vpi_printf("ERROR: %s for server, has to have a vector that is some number of bytes.\n", p_func_name);
 
     vpi_control(vpiFinish, 1);
 
     return 0;
   }
 
+
   array_byte_size = ((vector_size-1)/8 + 1);
 
   num_ab_val_pairs = ((array_byte_size-1)/sizeof(PLI_INT32) + 1);
 
-  // INDEX IS NOT AVAILABLE TILL SIMULATION TIME
-  // p_index = malloc(sizeof(int));
-  //
-  // if(!p_index)
-  // {
-  //   vpi_printf("ERROR: malloc failed.\n");
-  //
-  //   vpi_control(vpiFinish, 1);
-  //
-  //   return 0;
-  // }
-  //
-  // *p_index = fd.value.integer;
-  //
-  // g_send_tcp_server[*p_index].send_process_data.systf_handle = systf_handle;
-  // g_send_tcp_server[*p_index].send_process_data.arg2_handle = arg2_handle;
-  //
-  // g_send_tcp_server[*p_index].send_process_data.array_byte_size = array_byte_size;
-  // g_send_tcp_server[*p_index].send_process_data.num_ab_val_pairs = num_ab_val_pairs;
+  p_index = malloc(sizeof(int));
+
+  if(!p_index)
+  {
+    vpi_printf("ERROR: malloc failed.\n");
+
+    vpi_control(vpiFinish, 1);
+
+    return 0;
+  }
+
+  *p_index = -1;
+
+  for(int index = 0; index < MAX_CONNECTIONS; index++)
+  {
+    if(g_send_tcp_server[index].port == fd.value.integer)
+      *p_index = index;
+  }
+
+  if(*p_index < 0)
+  {
+    vpi_printf("ERROR: %s has to setup_tcp_server with a matching port before call.\n", p_func_name);
+
+    vpi_control(vpiFinish, 1);
+
+    return 0;
+  }
+
+  g_send_tcp_server[*p_index].send_process_data.systf_handle = systf_handle;
+  g_send_tcp_server[*p_index].send_process_data.arg2_handle = arg2_handle;
+
+  g_send_tcp_server[*p_index].send_process_data.array_byte_size = array_byte_size;
+  g_send_tcp_server[*p_index].send_process_data.num_ab_val_pairs = num_ab_val_pairs;
 
   // setup callback for start of simulation, well before it starts.
   start_sim_cb_data.reason    = cbStartOfSimulation;
@@ -370,8 +417,6 @@ PLI_INT32 send_tcp_server_calltf(PLI_BYTE8 *user_data)
   systf_handle = vpi_handle(vpiSysTfCall, NULL);
   
   p_index = (int *)vpi_get_userdata(systf_handle);
-  
-  vpi_printf("SENDING FOR INDEX: %d\n", *p_index);
 
   if(!p_index) return 0;
   

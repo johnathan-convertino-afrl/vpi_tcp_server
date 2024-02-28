@@ -40,7 +40,7 @@ void *recv_thread(void *data)
 
   s_vpi_vecval *p_vecval_buffer = NULL;
 
-  int *p_index;
+  int *p_index = NULL;
 
   p_index = (int *)data;
 
@@ -146,17 +146,20 @@ void *recv_thread(void *data)
 //******************************************************************************
 PLI_INT32 recv_tcp_server_end_sim_cb(p_cb_data data)
 {
-  int *p_index;
+  int *p_index = NULL;
 
   p_index = (int *)data->user_data;
 
   g_send_tcp_server[*p_index].kill_thread = 1;
 
-  ringBufferEndBlocking(g_send_tcp_server[*p_index].recv_process_data.p_ringbuffer);
+  if(g_send_tcp_server[*p_index].recv_process_data.p_ringbuffer)
+  {
+    ringBufferEndBlocking(g_send_tcp_server[*p_index].recv_process_data.p_ringbuffer);
 
-  pthread_join(g_send_tcp_server[*p_index].recv_process_data.thread, NULL);
+    pthread_join(g_send_tcp_server[*p_index].recv_process_data.thread, NULL);
 
-  freeRingBuffer(&g_send_tcp_server[*p_index].recv_process_data.p_ringbuffer);
+    freeRingBuffer(&g_send_tcp_server[*p_index].recv_process_data.p_ringbuffer);
+  }
 
   free(p_index);
 
@@ -169,16 +172,11 @@ PLI_INT32 recv_tcp_server_end_sim_cb(p_cb_data data)
 PLI_INT32 recv_tcp_server_start_sim_cb(p_cb_data data)
 {
   int error = 0;
-  int *p_index = 0;
+  int *p_index = NULL;
+
   s_vpi_value fd;
 
   p_index = (int *)data->user_data;
-
-  // fd.format = vpiIntVal;
-
-  // vpi_get_value(p_data.arg1_handle, &fd);
-
-  // vpi_printf("INDEX BEFORE: %d\n", *p_index);
 
   vpi_put_userdata(g_send_tcp_server[*p_index].recv_process_data.systf_handle, (void *)p_index);
 
@@ -218,9 +216,9 @@ PLI_INT32 recv_tcp_server_compiletf(PLI_BYTE8 *user_data)
   (void)user_data;
 
   //variables
-  int *p_index;
+  int *p_index = NULL;
 
-  PLI_INT32 arg_type = 0;
+  PLI_INT32 arg_type;
   PLI_INT32 vector_size;
   PLI_INT32 array_byte_size;
   PLI_INT32 num_ab_val_pairs;
@@ -228,13 +226,17 @@ PLI_INT32 recv_tcp_server_compiletf(PLI_BYTE8 *user_data)
   PLI_BYTE8 *p_func_name = NULL;
 
   s_vpi_value fd;
-  // s_vpi_value data;
 
   // vpi_register_cb copies the data in these structs per the verilog-2001 standard. cute.
   s_cb_data start_sim_cb_data;
   s_cb_data end_sim_cb_data;
 
-  vpiHandle systf_handle, arg_iterate, arg1_handle, arg2_handle, arg_handle, callback_handle;
+  vpiHandle systf_handle;
+  vpiHandle arg_iterate;
+  vpiHandle arg1_handle;
+  vpiHandle arg2_handle;
+  vpiHandle arg_handle;
+  vpiHandle callback_handle;
 
   // obtain a handle to the argument list
   systf_handle = vpi_handle(vpiSysTfCall, NULL);
@@ -256,26 +258,47 @@ PLI_INT32 recv_tcp_server_compiletf(PLI_BYTE8 *user_data)
   // check the type of the first handle, if it doesn't match as a int, quit.
   arg1_handle = vpi_scan(arg_iterate);
 
+  if(!arg1_handle)
+  {
+      vpi_printf("ERROR: %s requires two arguments.\n", p_func_name);
+
+      vpi_free_object(arg_iterate);
+
+      vpi_control(vpiFinish, 1);
+
+      return 0;
+  }
+
   arg_type = vpi_get(vpiType, arg1_handle);
 
-  // if(arg_type != vpiIntegerVar)
-  // {
-  //     vpi_printf("ERROR: %s requires first argument is a descriptor from setup_tcp_server.\n", p_func_name);
-  //     vpi_free_object(arg_iterate);
-  //
-  //     vpi_control(vpiFinish, 1);
-  //
-  //     return 0;
-  // }
+  if(arg_type != vpiConstant)
+  {
+      vpi_printf("ERROR: %s requires first argument is a port matching a setup_tcp_server.\n", p_func_name);
+
+      vpi_free_object(arg_iterate);
+
+      vpi_control(vpiFinish, 1);
+
+      return 0;
+  }
 
   fd.format = vpiIntVal;
-
-  vpi_printf("VPI INDEXS: %d\n", fd.value.integer);
 
   vpi_get_value(arg1_handle, &fd);
 
   // check for a second argument, this should return a vector.
   arg2_handle = vpi_scan(arg_iterate);
+
+  if(!arg2_handle)
+  {
+      vpi_printf("ERROR: %s requires two arguments.\n", p_func_name);
+
+      vpi_free_object(arg_iterate);
+
+      vpi_control(vpiFinish, 1);
+
+      return 0;
+  }
 
   arg_type = vpi_get(vpiType, arg2_handle);
 
@@ -335,9 +358,24 @@ PLI_INT32 recv_tcp_server_compiletf(PLI_BYTE8 *user_data)
     return 0;
   }
 
-  *p_index = fd.value.integer;
+  *p_index = -1;
 
-  vpi_printf("VPI INDEXS: %d\n", fd.value.integer);
+  for(int index = 0; index < MAX_CONNECTIONS; index++)
+  {
+    if(g_send_tcp_server[index].port == fd.value.integer)
+    {
+      *p_index = index;
+    }
+  }
+
+  if(*p_index < 0)
+  {
+    vpi_printf("ERROR: %s has to setup_tcp_server with a matching port before call.\n", p_func_name);
+
+    vpi_control(vpiFinish, 1);
+
+    return 0;
+  }
 
   g_send_tcp_server[*p_index].recv_process_data.systf_handle = systf_handle;
   g_send_tcp_server[*p_index].recv_process_data.arg2_handle = arg2_handle;
@@ -422,13 +460,6 @@ PLI_INT32 recv_tcp_server_calltf(PLI_BYTE8 *user_data)
   }
   
   return_value.value.integer = num_bytes_read;
-
-  if(num_bytes_read > 0) vpi_printf("RECV FOR INDEX: %d\n", *p_index);
-  
-  // if(!ringBufferStillBlocking(g_send_tcp_server[*p_index].recv_process_data.p_ringbuffer) && ringBufferIsEmpty(g_send_tcp_server[*p_index].recv_process_data.p_ringbuffer))
-  // {
-  //   return_value.value.integer *= -1;
-  // }
   
   vpi_put_value(systf_handle, &return_value, NULL, vpiNoDelay); 
   

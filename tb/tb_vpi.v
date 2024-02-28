@@ -1,11 +1,11 @@
 //******************************************************************************
 /// @file    tb_vpi.v
 /// @author  JAY CONVERTINO
-/// @date    2023.01.01
-/// @brief   Test vpi binary file read/write
+/// @date    2024.02.26
+/// @brief   Test vpi tcp server in echo setup
 ///
 /// @LICENSE MIT
-///  Copyright 2023 Jay Convertino
+///  Copyright 2024 Jay Convertino
 ///
 ///  Permission is hereby granted, free of charge, to any person obtaining a copy
 ///  of this software and associated documentation files (the "Software"), to 
@@ -36,7 +36,7 @@ module tb_vpi ();
   
   reg tb_data_clk = 0;
   
-  integer fd0 = 1;
+  integer fd0 = 0;
   integer fd1 = 1;
   integer return_value0 = 0;
   integer return_value1 = 0;
@@ -64,19 +64,20 @@ module tb_vpi ();
   //process data
   always @(posedge tb_data_clk)
   begin
-      return_value0 = $recv_tcp_server(fd0, dump_data);
+      return_value0 = $recv_tcp_server(4444, dump_data);
 
       if(return_value0 > 0)
       begin
-        return_value0 = $send_tcp_server(fd0, dump_data);
+        $display(return_value0);
+        return_value0 = $send_tcp_server(4444, dump_data);
       end
 
-      return_value1 = $recv_tcp_server(fd1, dump_data);
+      return_value1 = $recv_tcp_server(5555, dump_data);
 
       if(return_value1 > 0)
       begin
         $display(return_value1);
-        return_value1 = $send_tcp_server(fd1, dump_data);
+        return_value1 = $send_tcp_server(5555, dump_data);
       end
   end
 
