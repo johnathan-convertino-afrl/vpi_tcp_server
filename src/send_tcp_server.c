@@ -245,7 +245,7 @@ PLI_INT32 send_tcp_server_compiletf(PLI_BYTE8 *user_data)
   // check the type of the first handle, if it doesn't match as a int, quit.
   arg1_handle = vpi_scan(arg_iterate);
 
-  if(arg_type != arg1_handle)
+  if(!arg1_handle)
   {
       vpi_printf("ERROR: %s requires two arguments.\n", p_func_name);
 
@@ -260,7 +260,7 @@ PLI_INT32 send_tcp_server_compiletf(PLI_BYTE8 *user_data)
 
   if(arg_type != vpiConstant)
   {
-      vpi_printf("ERROR: %s requires first argument is a port number.\n", p_func_name);
+      vpi_printf("ERROR: %s requires first argument is a port matching a setup_tcp_server.\n", p_func_name);
 
       vpi_free_object(arg_iterate);
 
@@ -276,7 +276,7 @@ PLI_INT32 send_tcp_server_compiletf(PLI_BYTE8 *user_data)
   // check for a second argument, this should return a vector.
   arg2_handle = vpi_scan(arg_iterate);
 
-  if(arg_type != arg2_handle)
+  if(!arg2_handle)
   {
       vpi_printf("ERROR: %s requires two arguments.\n", p_func_name);
 
