@@ -26,7 +26,7 @@
 ///  IN THE SOFTWARE.
 //******************************************************************************
 
-#include "tcp_server.h"
+#include "vpi_tcp_server.h"
 #include "recv_tcp_server.h"
 
 //******************************************************************************
@@ -104,12 +104,12 @@ void *recv_thread(void *data)
 
       memset(p_vecval_buffer, 0, DATACHUNK * sizeof(s_vpi_vecval));
 
-      num_ab_pairs_read = (((num_byte_read-1)/g_send_tcp_server[*p_index].recv_process_data.array_byte_size) + 1) * g_send_tcp_server[*p_index].recv_process_data.num_ab_val_pairs;
+      num_ab_pairs_read = (((num_byte_read-1)/((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->array_byte_size) + 1) * ((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->num_ab_val_pairs;
 
       //set aval/bval values up to the number bytes read
       for(index = 0; index < (num_byte_read + num_byte_z); index++)
       {
-        if(g_send_tcp_server[*p_index].recv_process_data.array_byte_size <= (int)(index%(g_send_tcp_server[*p_index].recv_process_data.num_ab_val_pairs*sizeof(PLI_INT32))))
+        if(((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->array_byte_size <= (int)(index%(((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->num_ab_val_pairs*sizeof(PLI_INT32))))
         {
           num_byte_z++;
 
@@ -163,6 +163,8 @@ PLI_INT32 recv_tcp_server_end_sim_cb(p_cb_data data)
 
   free(p_index);
 
+  free(g_send_tcp_server[*p_index].recv_process_data.p_data);
+
   return 0;
 }
 
@@ -174,17 +176,15 @@ PLI_INT32 recv_tcp_server_start_sim_cb(p_cb_data data)
   int error = 0;
   int *p_index = NULL;
 
-  s_vpi_value fd;
-
   p_index = (int *)data->user_data;
 
-  vpi_put_userdata(g_send_tcp_server[*p_index].recv_process_data.systf_handle, (void *)p_index);
+  vpi_put_userdata(((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->systf_handle, (void *)p_index);
 
   g_send_tcp_server[*p_index].recv_process_data.p_ringbuffer = initRingBuffer(BUFFSIZE, sizeof(s_vpi_vecval));
 
   if(!g_send_tcp_server[*p_index].recv_process_data.p_ringbuffer)
   {
-    vpi_printf("ERROR: %s could not create ringbuffer\n", vpi_get_str(vpiName, g_send_tcp_server[*p_index].recv_process_data.systf_handle));
+    vpi_printf("ERROR: %s could not create ringbuffer\n", vpi_get_str(vpiName, ((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->systf_handle));
 
     vpi_control(vpiFinish, 1);
 
@@ -197,7 +197,7 @@ PLI_INT32 recv_tcp_server_start_sim_cb(p_cb_data data)
   
   if(error)
   {
-    vpi_printf("ERROR: $recv_tcp_server failed to create thread for fd %d.\n", *p_index);
+    vpi_printf("ERROR: $recv_tcp_server failed to create thread for index %d.\n", *p_index);
     
     vpi_control(vpiFinish, 1);
 
@@ -377,12 +377,25 @@ PLI_INT32 recv_tcp_server_compiletf(PLI_BYTE8 *user_data)
     return 0;
   }
 
-  g_send_tcp_server[*p_index].recv_process_data.systf_handle = systf_handle;
-  g_send_tcp_server[*p_index].recv_process_data.arg2_handle = arg2_handle;
-  g_send_tcp_server[*p_index].recv_process_data.arg1_handle = arg1_handle;
+  g_send_tcp_server[*p_index].recv_process_data.p_data = malloc(sizeof(struct s_vpi_data));
 
-  g_send_tcp_server[*p_index].recv_process_data.array_byte_size = array_byte_size;
-  g_send_tcp_server[*p_index].recv_process_data.num_ab_val_pairs = num_ab_val_pairs;
+  if(!g_send_tcp_server[*p_index].recv_process_data.p_data)
+  {
+    free(p_index);
+
+    vpi_printf("ERROR: malloc failed.\n");
+
+    vpi_control(vpiFinish, 1);
+
+    return 0;
+  }
+
+  ((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->systf_handle = systf_handle;
+  ((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->arg2_handle = arg2_handle;
+  ((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->arg1_handle = arg1_handle;
+
+  ((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->array_byte_size = array_byte_size;
+  ((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->num_ab_val_pairs = num_ab_val_pairs;
 
   // setup callback for start of simulation, well before it starts.
   start_sim_cb_data.reason    = cbStartOfSimulation;
@@ -435,13 +448,13 @@ PLI_INT32 recv_tcp_server_calltf(PLI_BYTE8 *user_data)
 
   if(!p_index) return 0;
   
-  s_vpi_vecval vecval_buffer[g_send_tcp_server[*p_index].recv_process_data.num_ab_val_pairs];
+  s_vpi_vecval vecval_buffer[((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->num_ab_val_pairs];
   
-  memset(&vecval_buffer, 0, sizeof(s_vpi_vecval) * g_send_tcp_server[*p_index].recv_process_data.num_ab_val_pairs);
+  memset(&vecval_buffer, 0, sizeof(s_vpi_vecval) *((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->num_ab_val_pairs);
   
-  num_pairs_read = ringBufferRead(g_send_tcp_server[*p_index].recv_process_data.p_ringbuffer, &vecval_buffer, g_send_tcp_server[*p_index].recv_process_data.num_ab_val_pairs);
+  num_pairs_read = ringBufferRead(g_send_tcp_server[*p_index].recv_process_data.p_ringbuffer, &vecval_buffer,((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->num_ab_val_pairs);
   
-  for(index = num_pairs_read; index < g_send_tcp_server[*p_index].recv_process_data.num_ab_val_pairs; index++)
+  for(index = num_pairs_read; index < ((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->num_ab_val_pairs; index++)
   {
     vecval_buffer[index].bval = ~0;
   }
@@ -450,11 +463,11 @@ PLI_INT32 recv_tcp_server_calltf(PLI_BYTE8 *user_data)
   
   vector_value.value.vector = vecval_buffer;
   
-  vpi_put_value(g_send_tcp_server[*p_index].recv_process_data.arg2_handle, &vector_value, NULL, vpiNoDelay);
+  vpi_put_value(((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->arg2_handle, &vector_value, NULL, vpiNoDelay);
   
   return_value.format = vpiIntVal;
   
-  for(index = 0; index < g_send_tcp_server[*p_index].recv_process_data.array_byte_size; index++)
+  for(index = 0; index < ((struct s_vpi_data *)(g_send_tcp_server[*p_index].recv_process_data.p_data))->array_byte_size; index++)
   {
      if(!(vecval_buffer[index/sizeof(PLI_INT32)].bval & (all_ones << (index%(sizeof(PLI_INT32)) * 8)))) num_bytes_read++;
   }

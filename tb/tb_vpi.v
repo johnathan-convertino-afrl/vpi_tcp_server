@@ -36,8 +36,6 @@ module tb_vpi ();
   
   reg tb_data_clk = 0;
   
-  integer fd0 = 0;
-  integer fd1 = 1;
   integer return_value0 = 0;
   integer return_value1 = 0;
 
@@ -47,10 +45,8 @@ module tb_vpi ();
     $dumpfile ("tb_vpi.fst");
     $dumpvars (0, tb_vpi);
 
-    fd0 = $setup_tcp_server("127.0.0.1", 4444);
-    fd1 = $setup_tcp_server("127.0.0.1", 5555);
-    $display(fd0);
-    $display(fd1);
+    $setup_tcp_server("127.0.0.1", 4444);
+    $setup_tcp_server("127.0.0.1", 5555);
   end
 
   //clock

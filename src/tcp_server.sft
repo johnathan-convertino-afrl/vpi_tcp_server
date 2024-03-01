@@ -3,6 +3,6 @@
 #******************************************************************************
 
 # sft declarations 
-$setup_tcp_server   vpiSysFuncInt
-#$recv_tcp_server  vpiSysFuncInt
-#$send_tcp_server  vpiSysFuncInt
+$setup_tcp_server vpiSysTask
+$recv_tcp_server  vpiSysFunc
+$send_tcp_server  vpiSysFunc

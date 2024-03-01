@@ -4,12 +4,17 @@ name: AFRL:vpi:tcp_server:1.0.0
 description: VPI core for creating TCP servers using io in byte widths only.
 
 filesets:
-  src :
+  common_src:
+    files:
+      - src/tcp_server.c      : {file_type: cSource}
+      - src/tcp_server.h      : {file_type: cSource, is_include_file : true}
+
+  vpi_src :
     files : 
-      - src/tcp_server.c      : {file_type : cSource}
+      - src/vpi_tcp_server.c  : {file_type : cSource}
       - src/send_tcp_server.c : {file_type : cSource}
       - src/recv_tcp_server.c : {file_type : cSource}
-      - src/tcp_server.h      : {file_type : cSource, is_include_file : true}
+      - src/vpi_tcp_server.h  : {file_type : cSource, is_include_file : true}
       - src/send_tcp_server.h : {file_type : cSource, is_include_file : true}
       - src/recv_tcp_server.h : {file_type : cSource, is_include_file : true}
       - src/tcp_server.sft    : {file_type : user}
@@ -36,7 +41,7 @@ filesets:
     
 vpi:
   tcp_server_io_vpi:
-    filesets : [src, header]
+    filesets : [common_src, vpi_src, header]
     libs : [ringBuffer -L., pthread]
   
 generate:
