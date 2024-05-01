@@ -1,23 +1,29 @@
 CAPI=2:
 
 name: AFRL:vpi:tcp_server:1.0.0
-description: VPI core for creating TCP servers using io in byte widths only.
+description: VPI/Verialtor core for creating TCP servers using io in byte widths only.
 
 filesets:
   common_src:
     files:
       - src/tcp_server.c      : {file_type: cSource}
       - src/tcp_server.h      : {file_type: cSource, is_include_file : true}
+      - src/messages.h        : {file_type: cSource, is_include_file : true}
 
   vpi_src :
     files : 
-      - src/vpi_tcp_server.c  : {file_type : cSource}
-      - src/send_tcp_server.c : {file_type : cSource}
-      - src/recv_tcp_server.c : {file_type : cSource}
-      - src/vpi_tcp_server.h  : {file_type : cSource, is_include_file : true}
-      - src/send_tcp_server.h : {file_type : cSource, is_include_file : true}
-      - src/recv_tcp_server.h : {file_type : cSource, is_include_file : true}
-      - src/tcp_server.sft    : {file_type : user}
+      - src/vpi_messages.c        : {file_type : cSource}
+      - src/vpi_tcp_server.c      : {file_type : cSource}
+      - src/vpi_send_tcp_server.c : {file_type : cSource}
+      - src/vpi_recv_tcp_server.c : {file_type : cSource}
+      - src/vpi_tcp_server.h      : {file_type : cSource, is_include_file : true}
+      - src/vpi_send_tcp_server.h : {file_type : cSource, is_include_file : true}
+      - src/vpi_recv_tcp_server.h : {file_type : cSource, is_include_file : true}
+      - src/vpi_tcp_server.sft    : {file_type : user}
+
+  verilator :
+    files :
+      - verilator_messages.cpp : {file_type : cppSource}
   
   lib :
     files :
@@ -60,7 +66,7 @@ generate:
 targets:
   default: &default
     description: Intergration default target for simulations.
-    filesets: [lib, dep_gen]
+    filesets: [lib, dep_gen, "tool_verilator? (verilator)"]
     generate: [gen_git, gen_lib]
     vpi: [tcp_server_io_vpi]
     

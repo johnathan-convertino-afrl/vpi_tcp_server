@@ -1,11 +1,8 @@
 //******************************************************************************
-/// @file     recv_tcp_server.h
-/// @author   Jay Convertino(johnathan.convertino.1@us.af.mil)
-/// @date     2024-02-22
-/// @brief    Functions for TCP server data receive.
-/// @details  $recv_tcp_server takes 2 arguments. First the fd returned from
-///           $setup_tcp_server, and then a register for data in size bytes.
-///           The function returns the number of bytes read.
+/// @file   messages.h
+/// @author Jay Convertino(johnathan.convertino.1@us.af.mil)
+/// @date   2024-03-02
+/// @brief  Functions to create multiple TCP servers
 ///
 /// @LICENSE MIT
 ///  Copyright 2024 Jay Convertino
@@ -29,20 +26,11 @@
 ///  IN THE SOFTWARE.
 //******************************************************************************
 
-#ifndef __RECV_TCP_SERVER
-#define __RECV_TCP_SERVER
+#ifndef __TCP_SERVER_MESSAGES
+#define __TCP_SERVER_MESSAGES
 
-// Include the VPI library of routines (object based).
-#include <vpi_user.h>
-
-//******************************************************************************
-/// @brief RECEIVE TCP SERVER DATA COMPILE SETUP
-//******************************************************************************
-PLI_INT32 recv_tcp_server_compiletf(PLI_BYTE8 *user_data);
-
-//******************************************************************************
-/// @brief  read_binary_calltf is a callback for the recv_tcp_server function.
-//******************************************************************************
-PLI_INT32 recv_tcp_server_calltf(PLI_BYTE8 *user_data);
+// FUNCTIONS //
+int print_error(const char *format, ...);
+int print_info(const char *format, ...);
 
 #endif

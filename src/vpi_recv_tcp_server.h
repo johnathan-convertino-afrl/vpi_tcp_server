@@ -1,8 +1,10 @@
 //******************************************************************************
-/// @file   send_tcp_server.h
-/// @author Jay Convertino(johnathan.convertino.1@us.af.mil)
-/// @date   2024-24-2
-/// @brief  Function to send data over a tcp server
+/// @file     vpi_recv_tcp_server.h
+/// @author   Jay Convertino(johnathan.convertino.1@us.af.mil)
+/// @date     2024-02-22
+/// @brief    Functions for TCP server data receive.
+/// @details  $recv_tcp_server takes 2 arguments. First a port matching
+///           setup_tcp_server, and second a vector of bytes for placing data.
 ///
 /// @LICENSE MIT
 ///  Copyright 2024 Jay Convertino
@@ -26,20 +28,20 @@
 ///  IN THE SOFTWARE.
 //******************************************************************************
 
-#ifndef __SEND_TCP_SERVER
-#define __SEND_TCP_SERVER
+#ifndef __VPI_RECV_TCP_SERVER
+#define __VPI_RECV_TCP_SERVER
 
 // Include the VPI library of routines (object based).
 #include <vpi_user.h>
 
 //******************************************************************************
-/// @brief SEND TCP SERVER DATA COMPILE SETUP
+/// @brief RECEIVE TCP SERVER DATA COMPILE SETUP
 //******************************************************************************
-PLI_INT32 send_tcp_server_compiletf(PLI_BYTE8 *user_data);
+PLI_INT32 recv_tcp_server_compiletf(PLI_BYTE8 *user_data);
 
 //******************************************************************************
-/// @brief  Called by the simulator, each time it is requested.
+/// @brief  recv_tcp_server_calltf is a callback for the recv_tcp_server function.
 //******************************************************************************
-PLI_INT32 send_tcp_server_calltf(PLI_BYTE8 *user_data);
+PLI_INT32 recv_tcp_server_calltf(PLI_BYTE8 *user_data);
 
 #endif

@@ -27,7 +27,7 @@
 //******************************************************************************
 
 #include "tcp_server.h"
-#include <vpi_user.h>
+#include "messages.h"
 
 unsigned int g_num_of_connections = 0;
 
@@ -67,9 +67,7 @@ int *setup_tcp_server(char *p_address, int port)
 
   if(!g_send_tcp_server[*p_index].p_socket_info)
   {
-    vpi_printf("ERROR: TCP SERVER, sockaddr_in location Issue\n");
-
-    vpi_control(vpiFinish, 1);
+    print_error("TCP SERVER, sockaddr_in location Issue\n");
 
     free(p_index);
 
@@ -86,7 +84,7 @@ int *setup_tcp_server(char *p_address, int port)
 
   g_num_of_connections++;
 
-  vpi_printf("TCP SERVER ADDRESS: %s PORT: %d\n", p_address, port);
+  print_info("TCP SERVER ADDRESS: %s PORT: %d\n", p_address, port);
 
   return p_index;
 }
@@ -145,11 +143,9 @@ void* connection_keep_alive(void *p_data)
 
   if(!p_index)
   {
-    vpi_printf("ERROR: TCP SERVER, get index.\n");
+    print_error("TCP SERVER, get index.\n");
 
     g_send_tcp_server[*p_index].kill_thread = 1;
-
-    vpi_control(vpiFinish, 1);
 
     return NULL;
   }
@@ -162,11 +158,9 @@ void* connection_keep_alive(void *p_data)
 
   if(poll_socket.fd == -1)
   {
-    vpi_printf("ERROR: TCP SERVER, Failed to create socket\n");
+    print_error("TCP SERVER, Failed to create socket\n");
 
     g_send_tcp_server[*p_index].kill_thread = 1;
-
-    vpi_control(vpiFinish, 1);
 
     return NULL;
   }
@@ -175,13 +169,11 @@ void* connection_keep_alive(void *p_data)
 
   if(error == -1)
   {
-    vpi_printf("ERROR: TCP SERVER, Failed to bind\n");
+    print_error("TCP SERVER, Failed to bind\n");
 
     close(poll_socket.fd);
 
     g_send_tcp_server[*p_index].kill_thread = 1;
-
-    vpi_control(vpiFinish, 1);
 
     return NULL;
   }
@@ -190,22 +182,20 @@ void* connection_keep_alive(void *p_data)
 
   if(error == -1)
   {
-    vpi_printf("ERROR: TCP SERVER, Failed to listen\n");
+    print_error("TCP SERVER, Failed to listen\n");
 
     close(poll_socket.fd);
 
     g_send_tcp_server[*p_index].kill_thread = 1;
-
-    vpi_control(vpiFinish, 1);
 
     return NULL;
   }
 
   poll_socket.events = POLLIN;
 
-  vpi_printf("TCP SERVER STARTED\n");
+  print_info("TCP SERVER STARTED\n");
 
-  vpi_printf("TCP SERVER WAITING FOR CLIENT\n");
+  print_info("TCP SERVER WAITING FOR CLIENT\n");
 
   do
   {
@@ -213,11 +203,9 @@ void* connection_keep_alive(void *p_data)
 
     if(error < 0)
     {
-      vpi_printf("ERROR: TCP SERVER, Poll failed\n");
+      print_error("TCP SERVER, Poll failed\n");
 
       g_send_tcp_server[*p_index].kill_thread = 1;
-
-      vpi_control(vpiFinish, 1);
 
       break;
     }
@@ -230,11 +218,9 @@ void* connection_keep_alive(void *p_data)
 
       if(g_send_tcp_server[*p_index].poll_connection.fd < 0)
       {
-        vpi_printf("ERROR: TCP SERVER, Accept failed\n");
+        print_error("TCP SERVER, Accept failed\n");
 
         g_send_tcp_server[*p_index].kill_thread = 1;
-
-        vpi_control(vpiFinish, 1);
 
         break;
       }
@@ -242,7 +228,7 @@ void* connection_keep_alive(void *p_data)
       g_send_tcp_server[*p_index].poll_connection.events = POLLIN | POLLOUT;
     }
 
-    vpi_printf("TCP CLIENT CONNECTED TO %s : %d\n", g_send_tcp_server[*p_index].p_address, g_send_tcp_server[*p_index].port);
+    print_info("TCP CLIENT CONNECTED TO %s : %d\n", g_send_tcp_server[*p_index].p_address, g_send_tcp_server[*p_index].port);
 
     prev_revents = g_send_tcp_server[*p_index].poll_connection.revents;
 
@@ -269,15 +255,15 @@ void* connection_keep_alive(void *p_data)
       }
     };
 
-    vpi_printf("TCP SERVER DISCONNECTED\n");
+    print_info("TCP SERVER DISCONNECTED\n");
 
     close(g_send_tcp_server[*p_index].poll_connection.fd);
 
-    if(!g_send_tcp_server[*p_index].kill_thread) vpi_printf("TCP SERVER WAITING FOR CLIENT\n");
+    if(!g_send_tcp_server[*p_index].kill_thread) print_info("TCP SERVER WAITING FOR CLIENT\n");
   }
   while(!g_send_tcp_server[*p_index].kill_thread);
 
-  vpi_printf("TCP SERVER SHUTTING DOWN\n");
+  print_info("TCP SERVER SHUTTING DOWN\n");
 
   close(poll_socket.fd);
 

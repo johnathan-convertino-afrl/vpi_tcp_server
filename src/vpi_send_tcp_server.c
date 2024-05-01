@@ -1,5 +1,5 @@
 //******************************************************************************
-/// @file   send_tcp_server.c
+/// @file   vpi_send_tcp_server.c
 /// @author Jay Convertino(johnathan.convertino.1@us.af.mil)
 /// @date   2024-23-02
 /// @brief  Functions for TCP server data send.
@@ -27,7 +27,7 @@
 //******************************************************************************
 
 #include "vpi_tcp_server.h"
-#include "send_tcp_server.h"
+#include "vpi_send_tcp_server.h"
 
 //******************************************************************************
 /// @brief SEND TCP SERVER THREAD TO EMPTY RINGBUFFER

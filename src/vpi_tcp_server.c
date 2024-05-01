@@ -26,8 +26,8 @@
 ///  IN THE SOFTWARE.
 //******************************************************************************
 
-#include "send_tcp_server.h"
-#include "recv_tcp_server.h"
+#include "vpi_send_tcp_server.h"
+#include "vpi_recv_tcp_server.h"
 #include "vpi_tcp_server.h"
 
 //******************************************************************************

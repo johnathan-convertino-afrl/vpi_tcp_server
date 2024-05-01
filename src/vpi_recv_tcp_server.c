@@ -1,5 +1,5 @@
 //******************************************************************************
-/// @file   recv_tcp_server.c
+/// @file   vpi_recv_tcp_server.c
 /// @author Jay Convertino(johnathan.convertino.1@us.af.mil)
 /// @date   2024-02-22
 /// @brief  Functions for TCP server data receive.
@@ -27,7 +27,7 @@
 //******************************************************************************
 
 #include "vpi_tcp_server.h"
-#include "recv_tcp_server.h"
+#include "vpi_recv_tcp_server.h"
 
 //******************************************************************************
 /// @brief RECV TCP SETUP THREAD TO FILL RINGBUFFER
