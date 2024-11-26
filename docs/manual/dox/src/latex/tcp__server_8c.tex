@@ -1,0 +1,84 @@
+\hypertarget{tcp__server_8c}{}\doxysection{tcp\+\_\+server.\+c File Reference}
+\label{tcp__server_8c}\index{tcp\_server.c@{tcp\_server.c}}
+{\ttfamily \#include \char`\"{}tcp\+\_\+server.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}messages.\+h\char`\"{}}\newline
+Include dependency graph for tcp\+\_\+server.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcp__server_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int $\ast$ \mbox{\hyperlink{tcp__server_8c_a27da65e3c699c14c6f4bce228a873d86}{setup\+\_\+tcp\+\_\+server}} (char $\ast$p\+\_\+address, int port)
+\begin{DoxyCompactList}\small\item\em SETUP TCP SERVER. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{tcp__server_8c_a750ee9a5580a09feb3536d0a23ad065e}{start\+\_\+tcp\+\_\+server}} (int $\ast$p\+\_\+index)
+\begin{DoxyCompactList}\small\item\em START TCP SERVER. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{tcp__server_8c_ac8844dafa791d1460f216d57540b99a2}{end\+\_\+tcp\+\_\+server}} (int $\ast$p\+\_\+index)
+\begin{DoxyCompactList}\small\item\em END TCP SERVER. \end{DoxyCompactList}\item 
+void $\ast$ \mbox{\hyperlink{tcp__server_8c_aca079d21cfd218ec2acee9b798c9eae0}{connection\+\_\+keep\+\_\+alive}} (void $\ast$p\+\_\+data)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \mbox{\hyperlink{tcp__server_8c_a30670828da5934761cbbb1b1e28add2f}{g\+\_\+num\+\_\+of\+\_\+connections}} = 0
+\item 
+struct \mbox{\hyperlink{structs__send__tcp__server}{s\+\_\+send\+\_\+tcp\+\_\+server}} \mbox{\hyperlink{tcp__server_8c_a9e8caae4418233ba3d2cd79507c2b2aa}{g\+\_\+send\+\_\+tcp\+\_\+server}} \mbox{[}\mbox{\hyperlink{tcp__server_8h_a053b7859476cc9867ec62c49e68d3fa1}{MAX\+\_\+\+CONNECTIONS}}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tcp__server_8c_aca079d21cfd218ec2acee9b798c9eae0}\label{tcp__server_8c_aca079d21cfd218ec2acee9b798c9eae0}} 
+\index{tcp\_server.c@{tcp\_server.c}!connection\_keep\_alive@{connection\_keep\_alive}}
+\index{connection\_keep\_alive@{connection\_keep\_alive}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{connection\_keep\_alive()}{connection\_keep\_alive()}}
+{\footnotesize\ttfamily void $\ast$ connection\+\_\+keep\+\_\+alive (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+data }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tcp__server_8c_ac8844dafa791d1460f216d57540b99a2}\label{tcp__server_8c_ac8844dafa791d1460f216d57540b99a2}} 
+\index{tcp\_server.c@{tcp\_server.c}!end\_tcp\_server@{end\_tcp\_server}}
+\index{end\_tcp\_server@{end\_tcp\_server}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{end\_tcp\_server()}{end\_tcp\_server()}}
+{\footnotesize\ttfamily int end\+\_\+tcp\+\_\+server (\begin{DoxyParamCaption}\item[{int $\ast$}]{p\+\_\+index }\end{DoxyParamCaption})}
+
+
+
+END TCP SERVER. 
+
+\mbox{\Hypertarget{tcp__server_8c_a27da65e3c699c14c6f4bce228a873d86}\label{tcp__server_8c_a27da65e3c699c14c6f4bce228a873d86}} 
+\index{tcp\_server.c@{tcp\_server.c}!setup\_tcp\_server@{setup\_tcp\_server}}
+\index{setup\_tcp\_server@{setup\_tcp\_server}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{setup\_tcp\_server()}{setup\_tcp\_server()}}
+{\footnotesize\ttfamily int $\ast$ setup\+\_\+tcp\+\_\+server (\begin{DoxyParamCaption}\item[{char $\ast$}]{p\+\_\+address,  }\item[{int}]{port }\end{DoxyParamCaption})}
+
+
+
+SETUP TCP SERVER. 
+
+\mbox{\Hypertarget{tcp__server_8c_a750ee9a5580a09feb3536d0a23ad065e}\label{tcp__server_8c_a750ee9a5580a09feb3536d0a23ad065e}} 
+\index{tcp\_server.c@{tcp\_server.c}!start\_tcp\_server@{start\_tcp\_server}}
+\index{start\_tcp\_server@{start\_tcp\_server}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{start\_tcp\_server()}{start\_tcp\_server()}}
+{\footnotesize\ttfamily int start\+\_\+tcp\+\_\+server (\begin{DoxyParamCaption}\item[{int $\ast$}]{p\+\_\+index }\end{DoxyParamCaption})}
+
+
+
+START TCP SERVER. 
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{tcp__server_8c_a30670828da5934761cbbb1b1e28add2f}\label{tcp__server_8c_a30670828da5934761cbbb1b1e28add2f}} 
+\index{tcp\_server.c@{tcp\_server.c}!g\_num\_of\_connections@{g\_num\_of\_connections}}
+\index{g\_num\_of\_connections@{g\_num\_of\_connections}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{g\_num\_of\_connections}{g\_num\_of\_connections}}
+{\footnotesize\ttfamily unsigned int g\+\_\+num\+\_\+of\+\_\+connections = 0}
+
+\mbox{\Hypertarget{tcp__server_8c_a9e8caae4418233ba3d2cd79507c2b2aa}\label{tcp__server_8c_a9e8caae4418233ba3d2cd79507c2b2aa}} 
+\index{tcp\_server.c@{tcp\_server.c}!g\_send\_tcp\_server@{g\_send\_tcp\_server}}
+\index{g\_send\_tcp\_server@{g\_send\_tcp\_server}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{g\_send\_tcp\_server}{g\_send\_tcp\_server}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structs__send__tcp__server}{s\+\_\+send\+\_\+tcp\+\_\+server}} g\+\_\+send\+\_\+tcp\+\_\+server\mbox{[}\mbox{\hyperlink{tcp__server_8h_a053b7859476cc9867ec62c49e68d3fa1}{MAX\+\_\+\+CONNECTIONS}}\mbox{]}}
+

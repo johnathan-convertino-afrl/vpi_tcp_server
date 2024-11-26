@@ -1,5 +1,10 @@
 # VPI TCP server
 ### TCP server functions for VPI
+
+
+![image](docs/manual/img/AFRL.png)
+
+
 ---
 
    author: Jay Convertino   
@@ -19,32 +24,16 @@
 #### Previous
   - none
 
-### IP USAGE
-#### INSTRUCTIONS
+### DOCUMENTATION
+  For detailed usage information, please navigate to one of the following sources. They are the same, just in a different format.
 
-This library provides three functions.
-* setup_tcp_server(ADDRESS, PORT)
-  * RETURNS File Descriptor (FD)
-* recv_tcp_server(PORT, VECTOR)
-  * RETURNS number of bytes received (non-blocking, 0 is nothing available)
-* send_tcp_server(PORT, VECTOR)
-  * RETURNS number of bytes send (non-blocking, 0 is nothing written)
+  - [vpi_tcp_server.pdf](docs/manual/vpi_tcp_server.pdf)
+  - [github page](https://johnathan-convertino-afrl.github.io/vpi_tcp_server/)
 
-Library supports up to 256 TCP server instances. Each instance is setup by
-setup_tcp_server. This returns a descriptor for that instance. Then that descriptor
-is used for nothing. The field PORT is used to associate setup_tcp_server with a recv_tcp_server
-and a send_tcp_server. This can be done in multiple calls.
-
-##### Dependency include for fusesoc core file
-``` 
-  dep_vpi:
-    depend:
-      - AFRL:vpi:tcp_server:1.0.0
-      
-targets:
-  default: &default
-    filesets: [src, dep, dep_vpi]
-```
+### DEPENDENCIES
+#### Build
+  - AFRL:utility:sim_helper
+  - AFRL:utility:generators:1.0.0
 
 ### COMPONENTS
 #### SRC
@@ -61,12 +50,12 @@ targets:
 
 * tb_vpi.v
 
-### fusesoc
+### FUSESOC
 
 * fusesoc_info.core created.
 * Simulation uses icarus to run data through the core.
 
-#### TARGETS
+#### Targets
 
 * RUN WITH: (fusesoc run --target=sim VENDER:CORE:NAME:VERSION)
   - default (for IP integration builds)

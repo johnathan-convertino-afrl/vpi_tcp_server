@@ -1,0 +1,100 @@
+\hypertarget{vpi__send__tcp__server_8c}{}\doxysection{vpi\+\_\+send\+\_\+tcp\+\_\+server.\+c File Reference}
+\label{vpi__send__tcp__server_8c}\index{vpi\_send\_tcp\_server.c@{vpi\_send\_tcp\_server.c}}
+
+
+Functions for TCP server data send.  
+
+
+{\ttfamily \#include \char`\"{}vpi\+\_\+tcp\+\_\+server.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vpi\+\_\+send\+\_\+tcp\+\_\+server.\+h\char`\"{}}\newline
+Include dependency graph for vpi\+\_\+send\+\_\+tcp\+\_\+server.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vpi__send__tcp__server_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \mbox{\hyperlink{vpi__send__tcp__server_8c_a1a7ec66a60300170d0b908ff293a5377}{send\+\_\+thread}} (void $\ast$data)
+\begin{DoxyCompactList}\small\item\em SEND TCP SERVER THREAD TO EMPTY RINGBUFFER. \end{DoxyCompactList}\item 
+PLI\+\_\+\+INT32 \mbox{\hyperlink{vpi__send__tcp__server_8c_a877390d6031f21d226685b3a35e5c3c6}{send\+\_\+tcp\+\_\+server\+\_\+end\+\_\+sim\+\_\+cb}} (p\+\_\+cb\+\_\+data data)
+\begin{DoxyCompactList}\small\item\em SEND TCP SERVER DATA END SIM CALLBACK. \end{DoxyCompactList}\item 
+PLI\+\_\+\+INT32 \mbox{\hyperlink{vpi__send__tcp__server_8c_af95d7524e4bba5a9e49f5d7df56e151e}{send\+\_\+tcp\+\_\+server\+\_\+start\+\_\+sim\+\_\+cb}} (p\+\_\+cb\+\_\+data data)
+\begin{DoxyCompactList}\small\item\em SEND TCP SERVER DATA START SIM CALLBACK. \end{DoxyCompactList}\item 
+PLI\+\_\+\+INT32 \mbox{\hyperlink{vpi__send__tcp__server_8c_a1646d7ecbe147554199968d6e38df424}{send\+\_\+tcp\+\_\+server\+\_\+compiletf}} (PLI\+\_\+\+BYTE8 $\ast$user\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Compile time call, check the arguments for validity. \end{DoxyCompactList}\item 
+PLI\+\_\+\+INT32 \mbox{\hyperlink{vpi__send__tcp__server_8c_abac58926ffc036f2863075cb2251ae6e}{send\+\_\+tcp\+\_\+server\+\_\+calltf}} (PLI\+\_\+\+BYTE8 $\ast$user\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Called by the simulator, each time it is requested. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions for TCP server data send. 
+
+\begin{DoxyAuthor}{Author}
+Jay Convertino(\href{mailto:johnathan.convertino.1@us.af.mil}{\texttt{ johnathan.\+convertino.\+1@us.\+af.\+mil}}) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2024-\/23-\/02
+\end{DoxyDate}
+@\+LICENSE MIT Copyright 2024 Jay Convertino
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \char`\"{}\+Software\char`\"{}), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions\+:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \char`\"{}\+AS IS\char`\"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{vpi__send__tcp__server_8c_abac58926ffc036f2863075cb2251ae6e}\label{vpi__send__tcp__server_8c_abac58926ffc036f2863075cb2251ae6e}} 
+\index{vpi\_send\_tcp\_server.c@{vpi\_send\_tcp\_server.c}!send\_tcp\_server\_calltf@{send\_tcp\_server\_calltf}}
+\index{send\_tcp\_server\_calltf@{send\_tcp\_server\_calltf}!vpi\_send\_tcp\_server.c@{vpi\_send\_tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{send\_tcp\_server\_calltf()}{send\_tcp\_server\_calltf()}}
+{\footnotesize\ttfamily PLI\+\_\+\+INT32 send\+\_\+tcp\+\_\+server\+\_\+calltf (\begin{DoxyParamCaption}\item[{PLI\+\_\+\+BYTE8 $\ast$}]{user\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Called by the simulator, each time it is requested. 
+
+\mbox{\Hypertarget{vpi__send__tcp__server_8c_a1646d7ecbe147554199968d6e38df424}\label{vpi__send__tcp__server_8c_a1646d7ecbe147554199968d6e38df424}} 
+\index{vpi\_send\_tcp\_server.c@{vpi\_send\_tcp\_server.c}!send\_tcp\_server\_compiletf@{send\_tcp\_server\_compiletf}}
+\index{send\_tcp\_server\_compiletf@{send\_tcp\_server\_compiletf}!vpi\_send\_tcp\_server.c@{vpi\_send\_tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{send\_tcp\_server\_compiletf()}{send\_tcp\_server\_compiletf()}}
+{\footnotesize\ttfamily PLI\+\_\+\+INT32 send\+\_\+tcp\+\_\+server\+\_\+compiletf (\begin{DoxyParamCaption}\item[{PLI\+\_\+\+BYTE8 $\ast$}]{user\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Compile time call, check the arguments for validity. 
+
+SEND TCP SERVER DATA COMPILE SETUP. \mbox{\Hypertarget{vpi__send__tcp__server_8c_a877390d6031f21d226685b3a35e5c3c6}\label{vpi__send__tcp__server_8c_a877390d6031f21d226685b3a35e5c3c6}} 
+\index{vpi\_send\_tcp\_server.c@{vpi\_send\_tcp\_server.c}!send\_tcp\_server\_end\_sim\_cb@{send\_tcp\_server\_end\_sim\_cb}}
+\index{send\_tcp\_server\_end\_sim\_cb@{send\_tcp\_server\_end\_sim\_cb}!vpi\_send\_tcp\_server.c@{vpi\_send\_tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{send\_tcp\_server\_end\_sim\_cb()}{send\_tcp\_server\_end\_sim\_cb()}}
+{\footnotesize\ttfamily PLI\+\_\+\+INT32 send\+\_\+tcp\+\_\+server\+\_\+end\+\_\+sim\+\_\+cb (\begin{DoxyParamCaption}\item[{p\+\_\+cb\+\_\+data}]{data }\end{DoxyParamCaption})}
+
+
+
+SEND TCP SERVER DATA END SIM CALLBACK. 
+
+\mbox{\Hypertarget{vpi__send__tcp__server_8c_af95d7524e4bba5a9e49f5d7df56e151e}\label{vpi__send__tcp__server_8c_af95d7524e4bba5a9e49f5d7df56e151e}} 
+\index{vpi\_send\_tcp\_server.c@{vpi\_send\_tcp\_server.c}!send\_tcp\_server\_start\_sim\_cb@{send\_tcp\_server\_start\_sim\_cb}}
+\index{send\_tcp\_server\_start\_sim\_cb@{send\_tcp\_server\_start\_sim\_cb}!vpi\_send\_tcp\_server.c@{vpi\_send\_tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{send\_tcp\_server\_start\_sim\_cb()}{send\_tcp\_server\_start\_sim\_cb()}}
+{\footnotesize\ttfamily PLI\+\_\+\+INT32 send\+\_\+tcp\+\_\+server\+\_\+start\+\_\+sim\+\_\+cb (\begin{DoxyParamCaption}\item[{p\+\_\+cb\+\_\+data}]{data }\end{DoxyParamCaption})}
+
+
+
+SEND TCP SERVER DATA START SIM CALLBACK. 
+
+\mbox{\Hypertarget{vpi__send__tcp__server_8c_a1a7ec66a60300170d0b908ff293a5377}\label{vpi__send__tcp__server_8c_a1a7ec66a60300170d0b908ff293a5377}} 
+\index{vpi\_send\_tcp\_server.c@{vpi\_send\_tcp\_server.c}!send\_thread@{send\_thread}}
+\index{send\_thread@{send\_thread}!vpi\_send\_tcp\_server.c@{vpi\_send\_tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{send\_thread()}{send\_thread()}}
+{\footnotesize\ttfamily void$\ast$ send\+\_\+thread (\begin{DoxyParamCaption}\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
+
+
+
+SEND TCP SERVER THREAD TO EMPTY RINGBUFFER. 
+

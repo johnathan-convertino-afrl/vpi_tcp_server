@@ -1,0 +1,160 @@
+\hypertarget{tcp__server_8h}{}\doxysection{tcp\+\_\+server.\+h File Reference}
+\label{tcp__server_8h}\index{tcp\_server.h@{tcp\_server.h}}
+
+
+Functions to write raw binary files properly in verilog.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$poll.\+h$>$}\newline
+{\ttfamily \#include $<$netinet/in.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}ring\+Buffer.\+h\char`\"{}}\newline
+Include dependency graph for tcp\+\_\+server.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcp__server_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcp__server_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structs__process__data}{s\+\_\+process\+\_\+data}}
+\item 
+struct \mbox{\hyperlink{structs__send__tcp__server}{s\+\_\+send\+\_\+tcp\+\_\+server}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tcp__server_8h_a39912bfe2a55f30e269196f9141d845d}{BUFFSIZE}}~(1 $<$$<$ 23)
+\item 
+\#define \mbox{\hyperlink{tcp__server_8h_afc72357309dc38503f194f7fefaad3b2}{DATACHUNK}}~(1 $<$$<$ 21)
+\item 
+\#define \mbox{\hyperlink{tcp__server_8h_a053b7859476cc9867ec62c49e68d3fa1}{MAX\+\_\+\+CONNECTIONS}}~256
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int $\ast$ \mbox{\hyperlink{tcp__server_8h_aaf9df82b1da2ab55580d9b55d2f6dfa4}{setup\+\_\+tcp\+\_\+server}} (char $\ast$p\+\_\+address, int port)
+\begin{DoxyCompactList}\small\item\em SETUP TCP SERVER. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{tcp__server_8h_a750ee9a5580a09feb3536d0a23ad065e}{start\+\_\+tcp\+\_\+server}} (int $\ast$p\+\_\+index)
+\begin{DoxyCompactList}\small\item\em START TCP SERVER. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{tcp__server_8h_ac8844dafa791d1460f216d57540b99a2}{end\+\_\+tcp\+\_\+server}} (int $\ast$p\+\_\+index)
+\begin{DoxyCompactList}\small\item\em END TCP SERVER. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structs__send__tcp__server}{s\+\_\+send\+\_\+tcp\+\_\+server}} \mbox{\hyperlink{tcp__server_8h_a9e8caae4418233ba3d2cd79507c2b2aa}{g\+\_\+send\+\_\+tcp\+\_\+server}} \mbox{[}\mbox{\hyperlink{tcp__server_8h_a053b7859476cc9867ec62c49e68d3fa1}{MAX\+\_\+\+CONNECTIONS}}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions to write raw binary files properly in verilog. 
+
+Functions to create multiple TCP servers.
+
+\begin{DoxyAuthor}{Author}
+Jay Convertino(\href{mailto:johnathan.convertino.1@us.af.mil}{\texttt{ johnathan.\+convertino.\+1@us.\+af.\+mil}}) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2024-\/22-\/02
+\end{DoxyDate}
+@\+LICENSE MIT Copyright 2024 Jay Convertino
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \char`\"{}\+Software\char`\"{}), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions\+:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \char`\"{}\+AS IS\char`\"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+\begin{DoxyAuthor}{Author}
+Jay Convertino(\href{mailto:johnathan.convertino.1@us.af.mil}{\texttt{ johnathan.\+convertino.\+1@us.\+af.\+mil}}) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2024-\/23-\/02
+\end{DoxyDate}
+@\+LICENSE MIT Copyright 2024 Jay Convertino
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \char`\"{}\+Software\char`\"{}), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions\+:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \char`\"{}\+AS IS\char`\"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{tcp__server_8h_a39912bfe2a55f30e269196f9141d845d}\label{tcp__server_8h_a39912bfe2a55f30e269196f9141d845d}} 
+\index{tcp\_server.h@{tcp\_server.h}!BUFFSIZE@{BUFFSIZE}}
+\index{BUFFSIZE@{BUFFSIZE}!tcp\_server.h@{tcp\_server.h}}
+\doxysubsubsection{\texorpdfstring{BUFFSIZE}{BUFFSIZE}}
+{\footnotesize\ttfamily \#define BUFFSIZE~(1 $<$$<$ 23)}
+
+\mbox{\Hypertarget{tcp__server_8h_afc72357309dc38503f194f7fefaad3b2}\label{tcp__server_8h_afc72357309dc38503f194f7fefaad3b2}} 
+\index{tcp\_server.h@{tcp\_server.h}!DATACHUNK@{DATACHUNK}}
+\index{DATACHUNK@{DATACHUNK}!tcp\_server.h@{tcp\_server.h}}
+\doxysubsubsection{\texorpdfstring{DATACHUNK}{DATACHUNK}}
+{\footnotesize\ttfamily \#define DATACHUNK~(1 $<$$<$ 21)}
+
+\mbox{\Hypertarget{tcp__server_8h_a053b7859476cc9867ec62c49e68d3fa1}\label{tcp__server_8h_a053b7859476cc9867ec62c49e68d3fa1}} 
+\index{tcp\_server.h@{tcp\_server.h}!MAX\_CONNECTIONS@{MAX\_CONNECTIONS}}
+\index{MAX\_CONNECTIONS@{MAX\_CONNECTIONS}!tcp\_server.h@{tcp\_server.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_CONNECTIONS}{MAX\_CONNECTIONS}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+CONNECTIONS~256}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tcp__server_8h_ac8844dafa791d1460f216d57540b99a2}\label{tcp__server_8h_ac8844dafa791d1460f216d57540b99a2}} 
+\index{tcp\_server.h@{tcp\_server.h}!end\_tcp\_server@{end\_tcp\_server}}
+\index{end\_tcp\_server@{end\_tcp\_server}!tcp\_server.h@{tcp\_server.h}}
+\doxysubsubsection{\texorpdfstring{end\_tcp\_server()}{end\_tcp\_server()}}
+{\footnotesize\ttfamily int end\+\_\+tcp\+\_\+server (\begin{DoxyParamCaption}\item[{int $\ast$}]{p\+\_\+index }\end{DoxyParamCaption})}
+
+
+
+END TCP SERVER. 
+
+\mbox{\Hypertarget{tcp__server_8h_aaf9df82b1da2ab55580d9b55d2f6dfa4}\label{tcp__server_8h_aaf9df82b1da2ab55580d9b55d2f6dfa4}} 
+\index{tcp\_server.h@{tcp\_server.h}!setup\_tcp\_server@{setup\_tcp\_server}}
+\index{setup\_tcp\_server@{setup\_tcp\_server}!tcp\_server.h@{tcp\_server.h}}
+\doxysubsubsection{\texorpdfstring{setup\_tcp\_server()}{setup\_tcp\_server()}}
+{\footnotesize\ttfamily int$\ast$ setup\+\_\+tcp\+\_\+server (\begin{DoxyParamCaption}\item[{char $\ast$}]{p\+\_\+address,  }\item[{int}]{port }\end{DoxyParamCaption})}
+
+
+
+SETUP TCP SERVER. 
+
+\mbox{\Hypertarget{tcp__server_8h_a750ee9a5580a09feb3536d0a23ad065e}\label{tcp__server_8h_a750ee9a5580a09feb3536d0a23ad065e}} 
+\index{tcp\_server.h@{tcp\_server.h}!start\_tcp\_server@{start\_tcp\_server}}
+\index{start\_tcp\_server@{start\_tcp\_server}!tcp\_server.h@{tcp\_server.h}}
+\doxysubsubsection{\texorpdfstring{start\_tcp\_server()}{start\_tcp\_server()}}
+{\footnotesize\ttfamily int start\+\_\+tcp\+\_\+server (\begin{DoxyParamCaption}\item[{int $\ast$}]{p\+\_\+index }\end{DoxyParamCaption})}
+
+
+
+START TCP SERVER. 
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{tcp__server_8h_a9e8caae4418233ba3d2cd79507c2b2aa}\label{tcp__server_8h_a9e8caae4418233ba3d2cd79507c2b2aa}} 
+\index{tcp\_server.h@{tcp\_server.h}!g\_send\_tcp\_server@{g\_send\_tcp\_server}}
+\index{g\_send\_tcp\_server@{g\_send\_tcp\_server}!tcp\_server.h@{tcp\_server.h}}
+\doxysubsubsection{\texorpdfstring{g\_send\_tcp\_server}{g\_send\_tcp\_server}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structs__send__tcp__server}{s\+\_\+send\+\_\+tcp\+\_\+server}} g\+\_\+send\+\_\+tcp\+\_\+server\mbox{[}\mbox{\hyperlink{tcp__server_8h_a053b7859476cc9867ec62c49e68d3fa1}{MAX\+\_\+\+CONNECTIONS}}\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+

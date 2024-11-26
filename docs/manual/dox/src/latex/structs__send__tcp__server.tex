@@ -1,0 +1,91 @@
+\hypertarget{structs__send__tcp__server}{}\doxysection{s\+\_\+send\+\_\+tcp\+\_\+server Struct Reference}
+\label{structs__send__tcp__server}\index{s\_send\_tcp\_server@{s\_send\_tcp\_server}}
+
+
+{\ttfamily \#include $<$tcp\+\_\+server.\+h$>$}
+
+
+
+Collaboration diagram for s\+\_\+send\+\_\+tcp\+\_\+server\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{structs__send__tcp__server__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structs__send__tcp__server_a7a6303d611b014526a83825b12483909}{kill\+\_\+thread}}
+\item 
+struct pollfd \mbox{\hyperlink{structs__send__tcp__server_ad78a94b9f2dfce7ccf33bb4148adf1fb}{poll\+\_\+connection}}
+\item 
+struct sockaddr\+\_\+in $\ast$ \mbox{\hyperlink{structs__send__tcp__server_a6a124f28348d02c09c727842313d553a}{p\+\_\+socket\+\_\+info}}
+\item 
+pthread\+\_\+t \mbox{\hyperlink{structs__send__tcp__server_ad46870bb007497f0845a54befaba874f}{connection\+\_\+thread}}
+\item 
+char $\ast$ \mbox{\hyperlink{structs__send__tcp__server_a6b9d0f3088ca842bd6df3d13369c6c73}{p\+\_\+address}}
+\item 
+unsigned short \mbox{\hyperlink{structs__send__tcp__server_a99d27f5c3b83f3a978b31f8cad399ee3}{port}}
+\item 
+struct \mbox{\hyperlink{structs__process__data}{s\+\_\+process\+\_\+data}} \mbox{\hyperlink{structs__send__tcp__server_a213cfeca3abe69e706144508437a2cc5}{recv\+\_\+process\+\_\+data}}
+\item 
+struct \mbox{\hyperlink{structs__process__data}{s\+\_\+process\+\_\+data}} \mbox{\hyperlink{structs__send__tcp__server_af53e2bf2076d3479764eb99e83e99de4}{send\+\_\+process\+\_\+data}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{structs__send__tcp__server_ad46870bb007497f0845a54befaba874f}\label{structs__send__tcp__server_ad46870bb007497f0845a54befaba874f}} 
+\index{s\_send\_tcp\_server@{s\_send\_tcp\_server}!connection\_thread@{connection\_thread}}
+\index{connection\_thread@{connection\_thread}!s\_send\_tcp\_server@{s\_send\_tcp\_server}}
+\doxysubsubsection{\texorpdfstring{connection\_thread}{connection\_thread}}
+{\footnotesize\ttfamily pthread\+\_\+t s\+\_\+send\+\_\+tcp\+\_\+server\+::connection\+\_\+thread}
+
+\mbox{\Hypertarget{structs__send__tcp__server_a7a6303d611b014526a83825b12483909}\label{structs__send__tcp__server_a7a6303d611b014526a83825b12483909}} 
+\index{s\_send\_tcp\_server@{s\_send\_tcp\_server}!kill\_thread@{kill\_thread}}
+\index{kill\_thread@{kill\_thread}!s\_send\_tcp\_server@{s\_send\_tcp\_server}}
+\doxysubsubsection{\texorpdfstring{kill\_thread}{kill\_thread}}
+{\footnotesize\ttfamily int s\+\_\+send\+\_\+tcp\+\_\+server\+::kill\+\_\+thread}
+
+\mbox{\Hypertarget{structs__send__tcp__server_a6b9d0f3088ca842bd6df3d13369c6c73}\label{structs__send__tcp__server_a6b9d0f3088ca842bd6df3d13369c6c73}} 
+\index{s\_send\_tcp\_server@{s\_send\_tcp\_server}!p\_address@{p\_address}}
+\index{p\_address@{p\_address}!s\_send\_tcp\_server@{s\_send\_tcp\_server}}
+\doxysubsubsection{\texorpdfstring{p\_address}{p\_address}}
+{\footnotesize\ttfamily char$\ast$ s\+\_\+send\+\_\+tcp\+\_\+server\+::p\+\_\+address}
+
+\mbox{\Hypertarget{structs__send__tcp__server_a6a124f28348d02c09c727842313d553a}\label{structs__send__tcp__server_a6a124f28348d02c09c727842313d553a}} 
+\index{s\_send\_tcp\_server@{s\_send\_tcp\_server}!p\_socket\_info@{p\_socket\_info}}
+\index{p\_socket\_info@{p\_socket\_info}!s\_send\_tcp\_server@{s\_send\_tcp\_server}}
+\doxysubsubsection{\texorpdfstring{p\_socket\_info}{p\_socket\_info}}
+{\footnotesize\ttfamily struct sockaddr\+\_\+in$\ast$ s\+\_\+send\+\_\+tcp\+\_\+server\+::p\+\_\+socket\+\_\+info}
+
+\mbox{\Hypertarget{structs__send__tcp__server_ad78a94b9f2dfce7ccf33bb4148adf1fb}\label{structs__send__tcp__server_ad78a94b9f2dfce7ccf33bb4148adf1fb}} 
+\index{s\_send\_tcp\_server@{s\_send\_tcp\_server}!poll\_connection@{poll\_connection}}
+\index{poll\_connection@{poll\_connection}!s\_send\_tcp\_server@{s\_send\_tcp\_server}}
+\doxysubsubsection{\texorpdfstring{poll\_connection}{poll\_connection}}
+{\footnotesize\ttfamily struct pollfd s\+\_\+send\+\_\+tcp\+\_\+server\+::poll\+\_\+connection}
+
+\mbox{\Hypertarget{structs__send__tcp__server_a99d27f5c3b83f3a978b31f8cad399ee3}\label{structs__send__tcp__server_a99d27f5c3b83f3a978b31f8cad399ee3}} 
+\index{s\_send\_tcp\_server@{s\_send\_tcp\_server}!port@{port}}
+\index{port@{port}!s\_send\_tcp\_server@{s\_send\_tcp\_server}}
+\doxysubsubsection{\texorpdfstring{port}{port}}
+{\footnotesize\ttfamily unsigned short s\+\_\+send\+\_\+tcp\+\_\+server\+::port}
+
+\mbox{\Hypertarget{structs__send__tcp__server_a213cfeca3abe69e706144508437a2cc5}\label{structs__send__tcp__server_a213cfeca3abe69e706144508437a2cc5}} 
+\index{s\_send\_tcp\_server@{s\_send\_tcp\_server}!recv\_process\_data@{recv\_process\_data}}
+\index{recv\_process\_data@{recv\_process\_data}!s\_send\_tcp\_server@{s\_send\_tcp\_server}}
+\doxysubsubsection{\texorpdfstring{recv\_process\_data}{recv\_process\_data}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structs__process__data}{s\+\_\+process\+\_\+data}} s\+\_\+send\+\_\+tcp\+\_\+server\+::recv\+\_\+process\+\_\+data}
+
+\mbox{\Hypertarget{structs__send__tcp__server_af53e2bf2076d3479764eb99e83e99de4}\label{structs__send__tcp__server_af53e2bf2076d3479764eb99e83e99de4}} 
+\index{s\_send\_tcp\_server@{s\_send\_tcp\_server}!send\_process\_data@{send\_process\_data}}
+\index{send\_process\_data@{send\_process\_data}!s\_send\_tcp\_server@{s\_send\_tcp\_server}}
+\doxysubsubsection{\texorpdfstring{send\_process\_data}{send\_process\_data}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structs__process__data}{s\+\_\+process\+\_\+data}} s\+\_\+send\+\_\+tcp\+\_\+server\+::send\+\_\+process\+\_\+data}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{tcp__server_8h}{tcp\+\_\+server.\+h}}\end{DoxyCompactItemize}

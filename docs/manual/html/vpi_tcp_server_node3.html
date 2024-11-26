@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Introduction</TITLE>
+<META NAME="description" CONTENT="Introduction">
+<META NAME="keywords" CONTENT="html">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2021.2">
+
+<LINK REL="STYLESHEET" HREF="html.css">
+
+<LINK REL="next" HREF="vpi_tcp_server_node4.html">
+<LINK REL="previous" HREF="vpi_tcp_server_node2.html">
+<LINK REL="next" HREF="vpi_tcp_server_node4.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="vpi_tcp_server_node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="vpi_tcp_server_node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="vpi_tcp_server_node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A ID="tex2html37"
+  HREF="vpi_tcp_server_node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A
+ HREF="vpi_tcp_server_node4.html">Dependencies</A>
+<B> Up:</B> <A
+ HREF="vpi_tcp_server_node2.html">Usage</A>
+<B> Previous:</B> <A
+ HREF="vpi_tcp_server_node2.html">Usage</A>
+ &nbsp; <B>  <A ID="tex2html38"
+  HREF="vpi_tcp_server_node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00021000000000000000">
+Introduction</A>
+</H2>
+
+<P>
+VPI TCP Server is a library which allows for a Verilog simulation to interface with a TCP port.
+This library provides three functions.
+
+<UL>
+<LI>setup_tcp_server(ADDRESS, PORT), RETURNS File Descriptor (FD)
+</LI>
+<LI>recv_tcp_server(PORT, VECTOR), RETURNS number of bytes received (non-blocking, 0 is nothing available)
+</LI>
+<LI>send_tcp_server(PORT, VECTOR), RETURNS number of bytes send (non-blocking, 0 is nothing written)
+</LI>
+</UL>
+
+<P>
+Library supports up to 256 TCP server instances. Each instance is setup by
+setup_tcp_server. This returns a descriptor for that instance. Then that descriptor
+is used for nothing. The field PORT is used to associate setup_tcp_server with a recv_tcp_server
+and a send_tcp_server. This can be done in multiple calls.
+
+<P>
+You can use the following for including the library in your project:
+
+<P>
+<TABLE FRAME="VOID" CELLPADDING="4"><TR><TD>
+<PRE>
+dep_vpi:
+  depend:
+    - AFRL:vpi:tcp_server:1.0.0
+
+targets:
+  default: &amp;default
+    description: Default file set.
+    filesets: [src, dep, dep_vpi]
+</PRE>
+</TD></TR></TABLE>
+
+<P>
+<BR><HR>
+
+</BODY>
+</HTML>
