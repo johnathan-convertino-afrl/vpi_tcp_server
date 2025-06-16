@@ -154,9 +154,9 @@ PLI_INT32 send_tcp_server_end_sim_cb(p_cb_data data)
     freeRingBuffer(&g_send_tcp_server[*p_index].send_process_data.p_ringbuffer);
   }
 
+  free(g_send_tcp_server[*p_index].send_process_data.p_data);
+  
   free(p_index);
-
-   free(g_send_tcp_server[*p_index].send_process_data.p_data);
 
   return 0;
 }
