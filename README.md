@@ -1,12 +1,15 @@
 # VPI TCP server
 ### TCP server functions for VPI
+
+![image](docs/manual/img/AFRL.png)
+
 ---
 
    author: Jay Convertino   
    
    date: 2024.02.24
    
-   details: TCP server functions for VPI VPI. This is threaded and does all recv/send IO outside of the simulation function call.
+   details: TCP server functions for VPI. This is threaded and does all recv/send IO outside of the simulation function call.
    
    license: MIT   
    
@@ -18,6 +21,17 @@
 
 #### Previous
   - none
+  
+### DOCUMENTATION
+  For detailed usage information, please navigate to one of the following sources. They are the same, just in a different format.
+
+  - [vpi_tcp_server.pdf](docs/manual/vpi_tcp_server.pdf)
+  - [github page](https://johnathan-convertino-afrl.github.io/vpi_tcp_server/)
+
+### DEPENDENCIES
+#### Build
+  - AFRL:utility:sim_helper
+  - AFRL:utility:generators:1.0.0
 
 ### IP USAGE
 #### INSTRUCTIONS
@@ -34,17 +48,6 @@ Library supports up to 256 TCP server instances. Each instance is setup by
 setup_tcp_server. This returns a descriptor for that instance. Then that descriptor
 is used for nothing. The field PORT is used to associate setup_tcp_server with a recv_tcp_server
 and a send_tcp_server. This can be done in multiple calls.
-
-##### Dependency include for fusesoc core file
-``` 
-  dep_vpi:
-    depend:
-      - AFRL:vpi:tcp_server:1.0.0
-      
-targets:
-  default: &default
-    filesets: [src, dep, dep_vpi]
-```
 
 ### COMPONENTS
 #### SRC
