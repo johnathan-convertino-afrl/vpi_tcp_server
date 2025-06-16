@@ -1,0 +1,167 @@
+\doxysection{tcp\+\_\+server.\+c File Reference}
+\hypertarget{tcp__server_8c}{}\label{tcp__server_8c}\index{tcp\_server.c@{tcp\_server.c}}
+{\ttfamily \#include "{}send\+\_\+tcp\+\_\+server.\+h"{}}\newline
+{\ttfamily \#include "{}recv\+\_\+tcp\+\_\+server.\+h"{}}\newline
+{\ttfamily \#include "{}tcp\+\_\+server.\+h"{}}\newline
+Include dependency graph for tcp\+\_\+server.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcp__server_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tcp__server_8c_aca079d21cfd218ec2acee9b798c9eae0}{connection\+\_\+keep\+\_\+alive}} (void \texorpdfstring{$\ast$}{*}p\+\_\+data)
+\item 
+PLI\+\_\+\+INT32 \mbox{\hyperlink{tcp__server_8c_a8708f3ca827ce813806ee56b2c5f516c}{setup\+\_\+tcp\+\_\+server\+\_\+start\+\_\+sim\+\_\+cb}} (p\+\_\+cb\+\_\+data data)
+\begin{DoxyCompactList}\small\item\em SETUP TCP SERVER DATA START SIM CALLBACK. \end{DoxyCompactList}\item 
+PLI\+\_\+\+INT32 \mbox{\hyperlink{tcp__server_8c_abd52c9625646a57e39852a0815a1b742}{setup\+\_\+tcp\+\_\+server\+\_\+end\+\_\+sim\+\_\+cb}} (p\+\_\+cb\+\_\+data data)
+\begin{DoxyCompactList}\small\item\em SETUP TCP SERVER END SIM CALLBACK. \end{DoxyCompactList}\item 
+PLI\+\_\+\+INT32 \mbox{\hyperlink{tcp__server_8c_a3977501a04e4410e31d348f3f8b5c68e}{tcp\+\_\+server\+\_\+sizetf}} (PLI\+\_\+\+BYTE8 \texorpdfstring{$\ast$}{*}user\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Returns the size, in bits, of the function return type. \end{DoxyCompactList}\item 
+PLI\+\_\+\+INT32 \mbox{\hyperlink{tcp__server_8c_aa7e08ae7d76bb60c4a1bbe3ebc90e66e}{setup\+\_\+tcp\+\_\+server\+\_\+compiletf}} (PLI\+\_\+\+BYTE8 \texorpdfstring{$\ast$}{*}user\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Compile time call, check the arguments for validity. \end{DoxyCompactList}\item 
+PLI\+\_\+\+INT32 \mbox{\hyperlink{tcp__server_8c_a85834658de99503cd4dfecf9288aed4e}{setup\+\_\+tcp\+\_\+server\+\_\+calltf}} (PLI\+\_\+\+BYTE8 \texorpdfstring{$\ast$}{*}user\+\_\+data)
+\begin{DoxyCompactList}\small\item\em setup\+\_\+tcp\+\_\+server\+\_\+calltf is the callback for the setup\+\_\+tcp\+\_\+server function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{tcp__server_8c_a3cf74c3858a159249894136b3c8be54b}{recv\+\_\+tcp\+\_\+server\+\_\+reg\+\_\+systf}} (void)
+\begin{DoxyCompactList}\small\item\em Setup recv\+\_\+tcp\+\_\+server function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{tcp__server_8c_a63139b482bb96b610044631e9bddc64d}{send\+\_\+tcp\+\_\+server\+\_\+reg\+\_\+systf}} (void)
+\begin{DoxyCompactList}\small\item\em Setup send\+\_\+tcp\+\_\+server function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{tcp__server_8c_a8656890aa58471edaf36afb4e94128af}{setup\+\_\+tcp\+\_\+server\+\_\+reg\+\_\+systf}} (void)
+\begin{DoxyCompactList}\small\item\em Setup setup\+\_\+tcp\+\_\+server function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \mbox{\hyperlink{tcp__server_8c_a30670828da5934761cbbb1b1e28add2f}{g\+\_\+num\+\_\+of\+\_\+connections}} = 0
+\item 
+struct \mbox{\hyperlink{structs__send__tcp__server}{s\+\_\+send\+\_\+tcp\+\_\+server}} \mbox{\hyperlink{tcp__server_8c_a9e8caae4418233ba3d2cd79507c2b2aa}{g\+\_\+send\+\_\+tcp\+\_\+server}} \mbox{[}\mbox{\hyperlink{tcp__server_8h_a053b7859476cc9867ec62c49e68d3fa1}{MAX\+\_\+\+CONNECTIONS}}\mbox{]}
+\item 
+void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tcp__server_8c_acb719825b471c3945f347d647d233b0c}{vlog\+\_\+startup\+\_\+routines}} \mbox{[}$\,$\mbox{]})(void)
+\begin{DoxyCompactList}\small\item\em register the new file functions \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{tcp__server_8c_aca079d21cfd218ec2acee9b798c9eae0}\label{tcp__server_8c_aca079d21cfd218ec2acee9b798c9eae0} 
+\index{tcp\_server.c@{tcp\_server.c}!connection\_keep\_alive@{connection\_keep\_alive}}
+\index{connection\_keep\_alive@{connection\_keep\_alive}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{connection\_keep\_alive()}{connection\_keep\_alive()}}
+{\footnotesize\ttfamily void \texorpdfstring{$\ast$}{*} connection\+\_\+keep\+\_\+alive (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{p\+\_\+data }\end{DoxyParamCaption})}
+
+\Hypertarget{tcp__server_8c_a3cf74c3858a159249894136b3c8be54b}\label{tcp__server_8c_a3cf74c3858a159249894136b3c8be54b} 
+\index{tcp\_server.c@{tcp\_server.c}!recv\_tcp\_server\_reg\_systf@{recv\_tcp\_server\_reg\_systf}}
+\index{recv\_tcp\_server\_reg\_systf@{recv\_tcp\_server\_reg\_systf}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{recv\_tcp\_server\_reg\_systf()}{recv\_tcp\_server\_reg\_systf()}}
+{\footnotesize\ttfamily void recv\+\_\+tcp\+\_\+server\+\_\+reg\+\_\+systf (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Setup recv\+\_\+tcp\+\_\+server function. 
+
+\Hypertarget{tcp__server_8c_a63139b482bb96b610044631e9bddc64d}\label{tcp__server_8c_a63139b482bb96b610044631e9bddc64d} 
+\index{tcp\_server.c@{tcp\_server.c}!send\_tcp\_server\_reg\_systf@{send\_tcp\_server\_reg\_systf}}
+\index{send\_tcp\_server\_reg\_systf@{send\_tcp\_server\_reg\_systf}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{send\_tcp\_server\_reg\_systf()}{send\_tcp\_server\_reg\_systf()}}
+{\footnotesize\ttfamily void send\+\_\+tcp\+\_\+server\+\_\+reg\+\_\+systf (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Setup send\+\_\+tcp\+\_\+server function. 
+
+\Hypertarget{tcp__server_8c_a85834658de99503cd4dfecf9288aed4e}\label{tcp__server_8c_a85834658de99503cd4dfecf9288aed4e} 
+\index{tcp\_server.c@{tcp\_server.c}!setup\_tcp\_server\_calltf@{setup\_tcp\_server\_calltf}}
+\index{setup\_tcp\_server\_calltf@{setup\_tcp\_server\_calltf}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{setup\_tcp\_server\_calltf()}{setup\_tcp\_server\_calltf()}}
+{\footnotesize\ttfamily PLI\+\_\+\+INT32 setup\+\_\+tcp\+\_\+server\+\_\+calltf (\begin{DoxyParamCaption}\item[{PLI\+\_\+\+BYTE8 \texorpdfstring{$\ast$}{*}}]{user\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+setup\+\_\+tcp\+\_\+server\+\_\+calltf is the callback for the setup\+\_\+tcp\+\_\+server function. 
+
+\Hypertarget{tcp__server_8c_aa7e08ae7d76bb60c4a1bbe3ebc90e66e}\label{tcp__server_8c_aa7e08ae7d76bb60c4a1bbe3ebc90e66e} 
+\index{tcp\_server.c@{tcp\_server.c}!setup\_tcp\_server\_compiletf@{setup\_tcp\_server\_compiletf}}
+\index{setup\_tcp\_server\_compiletf@{setup\_tcp\_server\_compiletf}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{setup\_tcp\_server\_compiletf()}{setup\_tcp\_server\_compiletf()}}
+{\footnotesize\ttfamily PLI\+\_\+\+INT32 setup\+\_\+tcp\+\_\+server\+\_\+compiletf (\begin{DoxyParamCaption}\item[{PLI\+\_\+\+BYTE8 \texorpdfstring{$\ast$}{*}}]{user\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Compile time call, check the arguments for validity. 
+
+\Hypertarget{tcp__server_8c_abd52c9625646a57e39852a0815a1b742}\label{tcp__server_8c_abd52c9625646a57e39852a0815a1b742} 
+\index{tcp\_server.c@{tcp\_server.c}!setup\_tcp\_server\_end\_sim\_cb@{setup\_tcp\_server\_end\_sim\_cb}}
+\index{setup\_tcp\_server\_end\_sim\_cb@{setup\_tcp\_server\_end\_sim\_cb}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{setup\_tcp\_server\_end\_sim\_cb()}{setup\_tcp\_server\_end\_sim\_cb()}}
+{\footnotesize\ttfamily PLI\+\_\+\+INT32 setup\+\_\+tcp\+\_\+server\+\_\+end\+\_\+sim\+\_\+cb (\begin{DoxyParamCaption}\item[{p\+\_\+cb\+\_\+data}]{data }\end{DoxyParamCaption})}
+
+
+
+SETUP TCP SERVER END SIM CALLBACK. 
+
+\Hypertarget{tcp__server_8c_a8656890aa58471edaf36afb4e94128af}\label{tcp__server_8c_a8656890aa58471edaf36afb4e94128af} 
+\index{tcp\_server.c@{tcp\_server.c}!setup\_tcp\_server\_reg\_systf@{setup\_tcp\_server\_reg\_systf}}
+\index{setup\_tcp\_server\_reg\_systf@{setup\_tcp\_server\_reg\_systf}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{setup\_tcp\_server\_reg\_systf()}{setup\_tcp\_server\_reg\_systf()}}
+{\footnotesize\ttfamily void setup\+\_\+tcp\+\_\+server\+\_\+reg\+\_\+systf (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Setup setup\+\_\+tcp\+\_\+server function. 
+
+\Hypertarget{tcp__server_8c_a8708f3ca827ce813806ee56b2c5f516c}\label{tcp__server_8c_a8708f3ca827ce813806ee56b2c5f516c} 
+\index{tcp\_server.c@{tcp\_server.c}!setup\_tcp\_server\_start\_sim\_cb@{setup\_tcp\_server\_start\_sim\_cb}}
+\index{setup\_tcp\_server\_start\_sim\_cb@{setup\_tcp\_server\_start\_sim\_cb}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{setup\_tcp\_server\_start\_sim\_cb()}{setup\_tcp\_server\_start\_sim\_cb()}}
+{\footnotesize\ttfamily PLI\+\_\+\+INT32 setup\+\_\+tcp\+\_\+server\+\_\+start\+\_\+sim\+\_\+cb (\begin{DoxyParamCaption}\item[{p\+\_\+cb\+\_\+data}]{data }\end{DoxyParamCaption})}
+
+
+
+SETUP TCP SERVER DATA START SIM CALLBACK. 
+
+\Hypertarget{tcp__server_8c_a3977501a04e4410e31d348f3f8b5c68e}\label{tcp__server_8c_a3977501a04e4410e31d348f3f8b5c68e} 
+\index{tcp\_server.c@{tcp\_server.c}!tcp\_server\_sizetf@{tcp\_server\_sizetf}}
+\index{tcp\_server\_sizetf@{tcp\_server\_sizetf}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{tcp\_server\_sizetf()}{tcp\_server\_sizetf()}}
+{\footnotesize\ttfamily PLI\+\_\+\+INT32 tcp\+\_\+server\+\_\+sizetf (\begin{DoxyParamCaption}\item[{PLI\+\_\+\+BYTE8 \texorpdfstring{$\ast$}{*}}]{user\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Returns the size, in bits, of the function return type. 
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{tcp__server_8c_a30670828da5934761cbbb1b1e28add2f}\label{tcp__server_8c_a30670828da5934761cbbb1b1e28add2f} 
+\index{tcp\_server.c@{tcp\_server.c}!g\_num\_of\_connections@{g\_num\_of\_connections}}
+\index{g\_num\_of\_connections@{g\_num\_of\_connections}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{g\_num\_of\_connections}{g\_num\_of\_connections}}
+{\footnotesize\ttfamily unsigned int g\+\_\+num\+\_\+of\+\_\+connections = 0}
+
+\Hypertarget{tcp__server_8c_a9e8caae4418233ba3d2cd79507c2b2aa}\label{tcp__server_8c_a9e8caae4418233ba3d2cd79507c2b2aa} 
+\index{tcp\_server.c@{tcp\_server.c}!g\_send\_tcp\_server@{g\_send\_tcp\_server}}
+\index{g\_send\_tcp\_server@{g\_send\_tcp\_server}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{g\_send\_tcp\_server}{g\_send\_tcp\_server}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structs__send__tcp__server}{s\+\_\+send\+\_\+tcp\+\_\+server}} g\+\_\+send\+\_\+tcp\+\_\+server\mbox{[}\mbox{\hyperlink{tcp__server_8h_a053b7859476cc9867ec62c49e68d3fa1}{MAX\+\_\+\+CONNECTIONS}}\mbox{]}}
+
+\Hypertarget{tcp__server_8c_acb719825b471c3945f347d647d233b0c}\label{tcp__server_8c_acb719825b471c3945f347d647d233b0c} 
+\index{tcp\_server.c@{tcp\_server.c}!vlog\_startup\_routines@{vlog\_startup\_routines}}
+\index{vlog\_startup\_routines@{vlog\_startup\_routines}!tcp\_server.c@{tcp\_server.c}}
+\doxysubsubsection{\texorpdfstring{vlog\_startup\_routines}{vlog\_startup\_routines}}
+{\footnotesize\ttfamily void(\texorpdfstring{$\ast$}{*} vlog\+\_\+startup\+\_\+routines\mbox{[}$\,$\mbox{]})(void) (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tcp__server_8c_a3cf74c3858a159249894136b3c8be54b}{recv\_tcp\_server\_reg\_systf}},}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tcp__server_8c_a63139b482bb96b610044631e9bddc64d}{send\_tcp\_server\_reg\_systf}},}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tcp__server_8c_a8656890aa58471edaf36afb4e94128af}{setup\_tcp\_server\_reg\_systf}},}
+\DoxyCodeLine{\ \ 0}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+register the new file functions 
+

@@ -1,0 +1,78 @@
+\doxysection{tcp\+\_\+server.\+h}
+\hypertarget{tcp__server_8h_source}{}\label{tcp__server_8h_source}\mbox{\hyperlink{tcp__server_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//******************************************************************************}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//******************************************************************************}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifndef\ \_\_VPI\_TCP\_SERVER}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ \_\_VPI\_TCP\_SERVER}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ c\ standard\ libraries}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ other\ libs}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ threads}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ <pthread.h>}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ tcp}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <poll.h>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <netinet/in.h>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <arpa/inet.h>}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <sys/socket.h>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ <sys/types.h>}}
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ Include\ the\ VPI\ library\ of\ routines\ (object\ based).}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <vpi\_user.h>}}
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ include\ ringbuffer\ library}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}ringBuffer.h"{}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{//ring\ buffer\ sizes}}
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ 4\ MB}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ BUFFSIZE\ \ (1\ <<\ 23)}}
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ 1\ MB}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ DATACHUNK\ (1\ <<\ 21)}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ MAX\_CONNECTIONS\ 256}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ RECV\_NAME\ \ "{}\$recv\_tcp\_server"{}}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ SEND\_NAME\ \ "{}\$send\_tcp\_server"{}}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ SETUP\_NAME\ "{}\$setup\_tcp\_server"{}}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structs__process__data}{s\_process\_data}}}
+\DoxyCodeLine{00064\ \{}
+\DoxyCodeLine{00065\ \ \ \textcolor{comment}{//\ PLI\_INT32\ error;}}
+\DoxyCodeLine{00066\ \ \ PLI\_INT32\ \mbox{\hyperlink{structs__process__data_ad6d09b1e0386b08c26d0b15af57c57cd}{num\_ab\_val\_pairs}};}
+\DoxyCodeLine{00067\ \ \ PLI\_INT32\ \mbox{\hyperlink{structs__process__data_acc8e7b9f9b8b72b71576afe507b6d0f9}{array\_byte\_size}};}
+\DoxyCodeLine{00068\ \ \ }
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{struct\ }s\_ringBuffer\ *\mbox{\hyperlink{structs__process__data_ab1d6337bd86ff1cd3a06b12772b7d52b}{p\_ringbuffer}};}
+\DoxyCodeLine{00070\ \ \ }
+\DoxyCodeLine{00071\ \ \ pthread\_t\ \mbox{\hyperlink{structs__process__data_a0a67afe9bcd49f26512979d8f8f108ee}{thread}};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ vpiHandle\ \mbox{\hyperlink{structs__process__data_a9ad60325bfdca9c79ec269bb06a84391}{systf\_handle}};}
+\DoxyCodeLine{00074\ \ \ vpiHandle\ \mbox{\hyperlink{structs__process__data_a2610ce3d6c008e3135182c46b50acd1d}{arg1\_handle}};}
+\DoxyCodeLine{00075\ \ \ vpiHandle\ \mbox{\hyperlink{structs__process__data_a44846da8ad08e3088ad79b78545f27da}{arg2\_handle}};}
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structs__send__tcp__server}{s\_send\_tcp\_server}}}
+\DoxyCodeLine{00079\ \{}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structs__send__tcp__server_a7a6303d611b014526a83825b12483909}{kill\_thread}};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{struct\ }pollfd\ \mbox{\hyperlink{structs__send__tcp__server_ad78a94b9f2dfce7ccf33bb4148adf1fb}{poll\_connection}};}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{struct\ }sockaddr\_in\ *\mbox{\hyperlink{structs__send__tcp__server_a6a124f28348d02c09c727842313d553a}{p\_socket\_info}};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ pthread\_t\ \mbox{\hyperlink{structs__send__tcp__server_ad46870bb007497f0845a54befaba874f}{connection\_thread}};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structs__send__tcp__server_a6b9d0f3088ca842bd6df3d13369c6c73}{p\_address}};}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structs__send__tcp__server_a99d27f5c3b83f3a978b31f8cad399ee3}{port}};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ vpiHandle\ \mbox{\hyperlink{structs__send__tcp__server_ad7bc6129d6a216a6f97709343e38dccc}{systf\_handle}};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structs__process__data}{s\_process\_data}}\ \mbox{\hyperlink{structs__send__tcp__server_a213cfeca3abe69e706144508437a2cc5}{recv\_process\_data}};}
+\DoxyCodeLine{00093\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structs__process__data}{s\_process\_data}}\ \mbox{\hyperlink{structs__send__tcp__server_af53e2bf2076d3479764eb99e83e99de4}{send\_process\_data}};}
+\DoxyCodeLine{00094\ \};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structs__send__tcp__server}{s\_send\_tcp\_server}}\ \mbox{\hyperlink{tcp__server_8h_a9e8caae4418233ba3d2cd79507c2b2aa}{g\_send\_tcp\_server}}[\mbox{\hyperlink{tcp__server_8h_a053b7859476cc9867ec62c49e68d3fa1}{MAX\_CONNECTIONS}}];}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

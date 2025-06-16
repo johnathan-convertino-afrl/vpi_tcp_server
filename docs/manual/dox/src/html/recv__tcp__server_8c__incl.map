@@ -1,0 +1,32 @@
+<map id="recv_tcp_server.c" name="recv_tcp_server.c">
+<area shape="rect" id="Node000001" title="Functions for TCP server data receive." alt="" coords="627,5,762,31"/>
+<area shape="rect" id="Node000002" href="$tcp__server_8h.html" title="Functions to write raw binary files properly in verilog." alt="" coords="573,79,675,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="685,33,647,71,643,67,681,29"/>
+<area shape="rect" id="Node000015" href="$recv__tcp__server_8h.html" title="Functions for TCP server data receive." alt="" coords="928,79,1064,104"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="744,28,935,73,934,78,742,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,152,72,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="573,99,364,117,228,133,86,155,85,149,227,128,364,112,573,93"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="97,152,167,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="574,100,403,120,181,154,181,149,403,115,573,95"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="191,152,262,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="574,103,443,124,276,154,275,149,442,118,573,97"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="286,152,370,177"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="577,107,384,153,383,148,576,101"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="395,152,469,177"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="594,107,477,149,475,144,592,102"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="493,152,552,177"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="609,106,552,146,549,142,606,102"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="576,152,672,177"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="627,104,627,138,621,138,621,104"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="697,152,789,177"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="644,102,713,142,710,147,642,106"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="813,152,915,177"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="663,101,813,145,811,151,662,107"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="940,152,1036,177"/>
+<area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="676,100,927,149,926,154,674,105"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="1183,152,1271,177"/>
+<area shape="poly" id="edge12_Node000002_Node000013" title=" " alt="" coords="675,94,886,114,1169,149,1168,154,886,119,674,99"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="1061,152,1158,177"/>
+<area shape="poly" id="edge13_Node000002_Node000014" title=" " alt="" coords="675,96,1048,149,1047,155,675,102"/>
+<area shape="poly" id="edge15_Node000015_Node000013" title=" " alt="" coords="1034,101,1177,145,1176,151,1032,107"/>
+</map>

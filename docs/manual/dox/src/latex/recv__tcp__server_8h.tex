@@ -1,0 +1,74 @@
+\doxysection{recv\+\_\+tcp\+\_\+server.\+h File Reference}
+\hypertarget{recv__tcp__server_8h}{}\label{recv__tcp__server_8h}\index{recv\_tcp\_server.h@{recv\_tcp\_server.h}}
+
+
+Functions for TCP server data receive.  
+
+
+{\ttfamily \#include $<$vpi\+\_\+user.\+h$>$}\newline
+Include dependency graph for recv\+\_\+tcp\+\_\+server.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{recv__tcp__server_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{recv__tcp__server_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+PLI\+\_\+\+INT32 \mbox{\hyperlink{recv__tcp__server_8h_ac9819fb82ca297eacbad9aa89b19bc0a}{recv\+\_\+tcp\+\_\+server\+\_\+compiletf}} (PLI\+\_\+\+BYTE8 \texorpdfstring{$\ast$}{*}user\+\_\+data)
+\begin{DoxyCompactList}\small\item\em RECEIVE TCP SERVER DATA COMPILE SETUP. \end{DoxyCompactList}\item 
+PLI\+\_\+\+INT32 \mbox{\hyperlink{recv__tcp__server_8h_a0c3bb495b6f63b485ccdfe1cbc7dfdf1}{recv\+\_\+tcp\+\_\+server\+\_\+calltf}} (PLI\+\_\+\+BYTE8 \texorpdfstring{$\ast$}{*}user\+\_\+data)
+\begin{DoxyCompactList}\small\item\em read\+\_\+binary\+\_\+calltf is a callback for the recv\+\_\+tcp\+\_\+server function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions for TCP server data receive. 
+
+\begin{DoxyAuthor}{Author}
+Jay Convertino(\href{mailto:johnathan.convertino.1@us.af.mil}{\texttt{ johnathan.\+convertino.\+1@us.\+af.\+mil}}) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2024-\/02-\/22
+\end{DoxyDate}
+\$recv\+\_\+tcp\+\_\+server takes 2 arguments. First the fd returned from \$setup\+\_\+tcp\+\_\+server, and then a register for data in size bytes. The function returns the number of bytes read.
+
+@\+LICENSE MIT Copyright 2024 Jay Convertino
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "{}\+Software"{}), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions\+:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "{}\+AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{recv__tcp__server_8h_a0c3bb495b6f63b485ccdfe1cbc7dfdf1}\label{recv__tcp__server_8h_a0c3bb495b6f63b485ccdfe1cbc7dfdf1} 
+\index{recv\_tcp\_server.h@{recv\_tcp\_server.h}!recv\_tcp\_server\_calltf@{recv\_tcp\_server\_calltf}}
+\index{recv\_tcp\_server\_calltf@{recv\_tcp\_server\_calltf}!recv\_tcp\_server.h@{recv\_tcp\_server.h}}
+\doxysubsubsection{\texorpdfstring{recv\_tcp\_server\_calltf()}{recv\_tcp\_server\_calltf()}}
+{\footnotesize\ttfamily PLI\+\_\+\+INT32 recv\+\_\+tcp\+\_\+server\+\_\+calltf (\begin{DoxyParamCaption}\item[{PLI\+\_\+\+BYTE8 \texorpdfstring{$\ast$}{*}}]{user\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+read\+\_\+binary\+\_\+calltf is a callback for the recv\+\_\+tcp\+\_\+server function. 
+
+read\+\_\+binary\+\_\+calltf is a callback for the recv\+\_\+tcp\+\_\+server function. \Hypertarget{recv__tcp__server_8h_ac9819fb82ca297eacbad9aa89b19bc0a}\label{recv__tcp__server_8h_ac9819fb82ca297eacbad9aa89b19bc0a} 
+\index{recv\_tcp\_server.h@{recv\_tcp\_server.h}!recv\_tcp\_server\_compiletf@{recv\_tcp\_server\_compiletf}}
+\index{recv\_tcp\_server\_compiletf@{recv\_tcp\_server\_compiletf}!recv\_tcp\_server.h@{recv\_tcp\_server.h}}
+\doxysubsubsection{\texorpdfstring{recv\_tcp\_server\_compiletf()}{recv\_tcp\_server\_compiletf()}}
+{\footnotesize\ttfamily PLI\+\_\+\+INT32 recv\+\_\+tcp\+\_\+server\+\_\+compiletf (\begin{DoxyParamCaption}\item[{PLI\+\_\+\+BYTE8 \texorpdfstring{$\ast$}{*}}]{user\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+RECEIVE TCP SERVER DATA COMPILE SETUP. 
+
+RECEIVE TCP SERVER DATA COMPILE SETUP. 

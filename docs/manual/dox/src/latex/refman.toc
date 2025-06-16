@@ -1,0 +1,79 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\contentsline {chapter}{\numberline {1}Data Structure Documentation}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}s\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}process\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}data Struct Reference}{1}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Field Documentation}{1}{subsection.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1.1}arg1\_handle}{1}{subsubsection.1.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1.2}arg2\_handle}{1}{subsubsection.1.1.1.2}%
+\contentsline {subsubsection}{\numberline {1.1.1.3}array\_byte\_size}{1}{subsubsection.1.1.1.3}%
+\contentsline {subsubsection}{\numberline {1.1.1.4}num\_ab\_val\_pairs}{1}{subsubsection.1.1.1.4}%
+\contentsline {subsubsection}{\numberline {1.1.1.5}p\_ringbuffer}{2}{subsubsection.1.1.1.5}%
+\contentsline {subsubsection}{\numberline {1.1.1.6}systf\_handle}{2}{subsubsection.1.1.1.6}%
+\contentsline {subsubsection}{\numberline {1.1.1.7}thread}{2}{subsubsection.1.1.1.7}%
+\contentsline {section}{\numberline {1.2}s\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}send\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}tcp\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}server Struct Reference}{2}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Field Documentation}{3}{subsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.1.1}connection\_thread}{3}{subsubsection.1.2.1.1}%
+\contentsline {subsubsection}{\numberline {1.2.1.2}kill\_thread}{3}{subsubsection.1.2.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1.3}p\_address}{3}{subsubsection.1.2.1.3}%
+\contentsline {subsubsection}{\numberline {1.2.1.4}p\_socket\_info}{3}{subsubsection.1.2.1.4}%
+\contentsline {subsubsection}{\numberline {1.2.1.5}poll\_connection}{3}{subsubsection.1.2.1.5}%
+\contentsline {subsubsection}{\numberline {1.2.1.6}port}{3}{subsubsection.1.2.1.6}%
+\contentsline {subsubsection}{\numberline {1.2.1.7}recv\_process\_data}{3}{subsubsection.1.2.1.7}%
+\contentsline {subsubsection}{\numberline {1.2.1.8}send\_process\_data}{3}{subsubsection.1.2.1.8}%
+\contentsline {subsubsection}{\numberline {1.2.1.9}systf\_handle}{3}{subsubsection.1.2.1.9}%
+\contentsline {chapter}{\numberline {2}File Documentation}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}recv\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}tcp\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}server.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{5}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Detailed Description}{6}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Function Documentation}{6}{subsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.2.1}recv\_tcp\_server\_calltf()}{6}{subsubsection.2.1.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.2.2}recv\_tcp\_server\_compiletf()}{6}{subsubsection.2.1.2.2}%
+\contentsline {subsubsection}{\numberline {2.1.2.3}recv\_tcp\_server\_end\_sim\_cb()}{7}{subsubsection.2.1.2.3}%
+\contentsline {subsubsection}{\numberline {2.1.2.4}recv\_tcp\_server\_start\_sim\_cb()}{7}{subsubsection.2.1.2.4}%
+\contentsline {subsubsection}{\numberline {2.1.2.5}recv\_thread()}{7}{subsubsection.2.1.2.5}%
+\contentsline {section}{\numberline {2.2}recv\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}tcp\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}server.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{7}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Detailed Description}{8}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Function Documentation}{8}{subsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.2.1}recv\_tcp\_server\_calltf()}{8}{subsubsection.2.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2.2}recv\_tcp\_server\_compiletf()}{9}{subsubsection.2.2.2.2}%
+\contentsline {section}{\numberline {2.3}recv\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}tcp\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}server.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{9}{section.2.3}%
+\contentsline {section}{\numberline {2.4}send\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}tcp\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}server.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{9}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Detailed Description}{10}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Function Documentation}{10}{subsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.2.1}send\_tcp\_server\_calltf()}{10}{subsubsection.2.4.2.1}%
+\contentsline {subsubsection}{\numberline {2.4.2.2}send\_tcp\_server\_compiletf()}{10}{subsubsection.2.4.2.2}%
+\contentsline {subsubsection}{\numberline {2.4.2.3}send\_tcp\_server\_end\_sim\_cb()}{10}{subsubsection.2.4.2.3}%
+\contentsline {subsubsection}{\numberline {2.4.2.4}send\_tcp\_server\_start\_sim\_cb()}{11}{subsubsection.2.4.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.2.5}send\_thread()}{11}{subsubsection.2.4.2.5}%
+\contentsline {section}{\numberline {2.5}send\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}tcp\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}server.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{11}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Detailed Description}{12}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Function Documentation}{12}{subsection.2.5.2}%
+\contentsline {subsubsection}{\numberline {2.5.2.1}send\_tcp\_server\_calltf()}{12}{subsubsection.2.5.2.1}%
+\contentsline {subsubsection}{\numberline {2.5.2.2}send\_tcp\_server\_compiletf()}{12}{subsubsection.2.5.2.2}%
+\contentsline {section}{\numberline {2.6}send\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}tcp\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}server.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{13}{section.2.6}%
+\contentsline {section}{\numberline {2.7}tcp\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}server.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{13}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}Function Documentation}{14}{subsection.2.7.1}%
+\contentsline {subsubsection}{\numberline {2.7.1.1}connection\_keep\_alive()}{14}{subsubsection.2.7.1.1}%
+\contentsline {subsubsection}{\numberline {2.7.1.2}recv\_tcp\_server\_reg\_systf()}{14}{subsubsection.2.7.1.2}%
+\contentsline {subsubsection}{\numberline {2.7.1.3}send\_tcp\_server\_reg\_systf()}{14}{subsubsection.2.7.1.3}%
+\contentsline {subsubsection}{\numberline {2.7.1.4}setup\_tcp\_server\_calltf()}{14}{subsubsection.2.7.1.4}%
+\contentsline {subsubsection}{\numberline {2.7.1.5}setup\_tcp\_server\_compiletf()}{14}{subsubsection.2.7.1.5}%
+\contentsline {subsubsection}{\numberline {2.7.1.6}setup\_tcp\_server\_end\_sim\_cb()}{14}{subsubsection.2.7.1.6}%
+\contentsline {subsubsection}{\numberline {2.7.1.7}setup\_tcp\_server\_reg\_systf()}{15}{subsubsection.2.7.1.7}%
+\contentsline {subsubsection}{\numberline {2.7.1.8}setup\_tcp\_server\_start\_sim\_cb()}{15}{subsubsection.2.7.1.8}%
+\contentsline {subsubsection}{\numberline {2.7.1.9}tcp\_server\_sizetf()}{15}{subsubsection.2.7.1.9}%
+\contentsline {subsection}{\numberline {2.7.2}Variable Documentation}{15}{subsection.2.7.2}%
+\contentsline {subsubsection}{\numberline {2.7.2.1}g\_num\_of\_connections}{15}{subsubsection.2.7.2.1}%
+\contentsline {subsubsection}{\numberline {2.7.2.2}g\_send\_tcp\_server}{15}{subsubsection.2.7.2.2}%
+\contentsline {subsubsection}{\numberline {2.7.2.3}vlog\_startup\_routines}{15}{subsubsection.2.7.2.3}%
+\contentsline {section}{\numberline {2.8}tcp\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}server.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{16}{section.2.8}%
+\contentsline {subsection}{\numberline {2.8.1}Detailed Description}{17}{subsection.2.8.1}%
+\contentsline {subsection}{\numberline {2.8.2}Macro Definition Documentation}{18}{subsection.2.8.2}%
+\contentsline {subsubsection}{\numberline {2.8.2.1}BUFFSIZE}{18}{subsubsection.2.8.2.1}%
+\contentsline {subsubsection}{\numberline {2.8.2.2}DATACHUNK}{18}{subsubsection.2.8.2.2}%
+\contentsline {subsubsection}{\numberline {2.8.2.3}MAX\_CONNECTIONS}{18}{subsubsection.2.8.2.3}%
+\contentsline {subsubsection}{\numberline {2.8.2.4}RECV\_NAME}{18}{subsubsection.2.8.2.4}%
+\contentsline {subsubsection}{\numberline {2.8.2.5}SEND\_NAME}{18}{subsubsection.2.8.2.5}%
+\contentsline {subsubsection}{\numberline {2.8.2.6}SETUP\_NAME}{18}{subsubsection.2.8.2.6}%
+\contentsline {subsection}{\numberline {2.8.3}Variable Documentation}{18}{subsection.2.8.3}%
+\contentsline {subsubsection}{\numberline {2.8.3.1}g\_send\_tcp\_server}{18}{subsubsection.2.8.3.1}%
+\contentsline {section}{\numberline {2.9}tcp\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}server.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{19}{section.2.9}%
+\contentsline {chapter}{Index}{21}{section*.22}%

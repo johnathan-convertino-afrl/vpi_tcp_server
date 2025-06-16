@@ -1,0 +1,9 @@
+<map id="tcp_server.h" name="tcp_server.h">
+<area shape="rect" id="Node000001" title="Functions to write raw binary files properly in verilog." alt="" coords="183,5,285,31"/>
+<area shape="rect" id="Node000002" href="$recv__tcp__server_8c.html" title="Functions for TCP server data receive." alt="" coords="5,79,140,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="197,39,100,81,98,76,195,34"/>
+<area shape="rect" id="Node000003" href="$send__tcp__server_8c.html" title="Functions for TCP server data send." alt="" coords="165,79,303,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="237,44,237,79,231,79,231,44"/>
+<area shape="rect" id="Node000004" href="$tcp__server_8c.html" title=" " alt="" coords="328,79,428,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="270,34,356,76,353,81,268,39"/>
+</map>
